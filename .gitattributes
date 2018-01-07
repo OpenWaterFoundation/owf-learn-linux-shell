@@ -1,0 +1,9 @@
+# Settings for the repository
+
+# Cause line endings in the repository to be newline (\n) and local files to be that of the operating system.
+* text=auto
+
+# Denote binary files
+
+*.png binary
+*.jpg binary
