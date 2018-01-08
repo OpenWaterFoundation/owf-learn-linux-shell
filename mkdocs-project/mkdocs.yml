@@ -9,8 +9,9 @@ pages:
 - Installing Shell Software: install.md
 - User Environment Basics: user-env.md
 - Shell Script Basics: shell-script-basics.md
+- Shell Script Best Practices: best-practices.md
 - Examples for Common Tasks: common-tasks.md
-- Troubleshooting: troubleshooting.md
+- Troubleshooting: troubleshooting/troubleshooting.md
 - Resources: resources.md
 # ------- configuration properties ---------------
 # Use Material theme

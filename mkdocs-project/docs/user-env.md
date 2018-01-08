@@ -163,6 +163,15 @@ The following table indicates whether the Linux environments are able to access 
 
 Environment variables that are defined for a parent shell are typically inherited by child shell programs,
 such as those used to run shell scripts.
+Therefore, when a shell script is run from a command shell prompt, it is generally
+not necessary to reinitialize environment variables.
+However, if the shell script being run needs additional configuration,
+then such configuration needs to be done in the login shell before running the shell script.
+
+Environment variables that are set in a script to do not propagate to other command shells that were previously started.
+For example, if a login window is opened and environment variables are set, they are active only for that window.
+Setting the environment variables in a startup configuration file will cause those variables to be set for every
+window that is opened.
 
 ### Accessing Windows Environment Variables from Linux ###
 

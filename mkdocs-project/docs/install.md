@@ -57,7 +57,7 @@ $ which sh
 $ which bash
 ```
 
-## ![Linux](../images/linux-32.png)Installing a Shell on Linux ##
+## ![Linux](images/linux-32.png)Installing a Shell on Linux ##
 
 Installing a shell program on Linux involves determining the package name for the program
 and then running the installer for that version of Linux.
@@ -66,7 +66,7 @@ usually use an installer such as `apt-get`.
 
 Refer to Linux software installation instructions for the Linux version.
 
-## ![Cygwin](../images/cygwin-32.png)Installing Cygwin ##
+## ![Cygwin](images/cygwin-32.png)Installing Cygwin ##
 
 The Cygwin software is a free and open source Linux implementation that runs on Windows.
 The Cygwin shells can run Windows programs because Cygwin programs are compiled to run on Windows.
@@ -86,7 +86,7 @@ See:
 
 * [Minimalist GNU for Windows](http://www.mingw.org/)
 
-## ![Git](../images/git-bash-32.png)Installing Git for Windows ##
+## ![Git](images/git-bash-32.png)Installing Git for Windows ##
 
 Git for Windows is often installed by software developers and others who are using the Git version control system
 to track versions of electronic files and collaborate with others on electronic file edits.
@@ -94,7 +94,7 @@ Git for Windows will also install MinGW and Git Bash.  See:
 
 * [Git](https://git-scm.com/) - select the ***Downloads*** link and then ***Windows***
 
-## ![Windows](../images/windows-32.png)Installing the Linux Subsystem on Windows 10 ##
+## ![Windows](images/windows-32.png)Installing the Linux Subsystem on Windows 10 ##
 
 The following explains how to enable/install the Linux Subsystem on Windows 10.
 Microsoft is now shipping a version of Linux to help developers.

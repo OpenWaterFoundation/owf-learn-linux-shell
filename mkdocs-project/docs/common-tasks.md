@@ -2,6 +2,7 @@
 
 This page provides examples for common shell script tasks.
 Some of the examples are simply useful Linux commands, but can be placed in shell scripts for reuse.
+More examples will be added.
 
 * [Search Files for a String](#search-files-for-a-string)
 
@@ -15,5 +16,3 @@ pattern by ignoring case and recursively searching all files in the current and 
 ```sh
 $ grep -ir 'pattern'
 ```
-
-More examples will be added.
