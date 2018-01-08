@@ -2,7 +2,7 @@
 
 Linux shell software must be installed before running the shell command program and shell scripts.
 Installing shell software on Windows requires extra effort.
-Default shell scripts will already be installed in Linux environments, although others can additionally be installed.
+Default shell programs will already be installed in Linux environments, although others can additionally be installed.
 This page describes how to install different shell programs,
 as well as providing background on which shell to use.
 
@@ -59,6 +59,8 @@ $ which bash
 
 ## ![Linux](images/linux-32.png)Installing a Shell on Linux ##
 
+In most cases, the default shell programs that are installed will be sufficient
+but sometimes it is useful to install other shell programs.
 Installing a shell program on Linux involves determining the package name for the program
 and then running the installer for that version of Linux.
 For example, the Cygwin installer lists available shells and Linux distributions
