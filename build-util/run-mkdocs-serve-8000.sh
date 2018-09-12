@@ -1,4 +1,6 @@
 #!/bin/sh
+(set -o igncr) 2>/dev/null && set -o igncr; # this comment is required
+# The above line ensures that the script can be run on Cygwin/Linux even with Windows CRNL
 #
 # Run 'mkdocs serve' on port 8000 (default)
 

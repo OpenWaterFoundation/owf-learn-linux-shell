@@ -11,6 +11,7 @@ pages:
 - Shell Script Basics: shell-script-basics.md
 - Shell Script Best Practices: best-practices.md
 - Examples for Common Tasks: common-tasks.md
+- Tips and Tricks: tips-and-tricks.md
 - Troubleshooting: troubleshooting/troubleshooting.md
 - Resources: resources.md
 # ------- configuration properties ---------------
