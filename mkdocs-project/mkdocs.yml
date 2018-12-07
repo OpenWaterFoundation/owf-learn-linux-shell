@@ -18,7 +18,8 @@ pages:
 # Use Material theme
 # - installation notes:  https://github.com/squidfunk/mkdocs-material
 theme: material
-repo_url:  https://github.com/OpenWaterFoundation/owf-learn-linux-shell
+# Don't include the URL because don't really want direct editing on content and editor icons are irritating
+# repo_url:  https://github.com/OpenWaterFoundation/owf-learn-linux-shell
 site_description:  Open Water Foundation Learn Linux Shell
 site_author:  Open Water Foundation
 site_favicon:  'images/OWF-Logo-Favicon-32x32.png'
