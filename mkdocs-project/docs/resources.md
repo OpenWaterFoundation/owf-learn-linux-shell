@@ -1,4 +1,4 @@
-# Learn Linux Shell / Resources #
+# Linux Shell / Resources #
 
 The following are useful resources.
 

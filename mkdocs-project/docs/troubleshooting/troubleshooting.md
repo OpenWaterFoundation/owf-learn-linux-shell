@@ -1,4 +1,4 @@
-# Learn Linux Shell / Troubleshooting #
+# Linux Shell / Troubleshooting #
 
 Troubleshooting shell scripts typically involves reviewing error messages printed by the shell program.
 Often a line number will be printed indicating the location of a syntax error.

@@ -1,4 +1,4 @@
-# Learn Linux Shell / Introduction #
+# Linux Shell / Introduction #
 
 There is often a need to perform computational tasks without writing a program in a
 "full" programming language (C, Python, Java, C#, etc.).

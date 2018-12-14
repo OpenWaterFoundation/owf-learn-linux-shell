@@ -1,7 +1,8 @@
-# Learn Linux Shell / Install Shell Software #
+# Linux Shell / Select and Install Shell Software #
 
+Selecting a Linux shell will define the features of the shell scripting language.
 Linux shell software must be installed before running the shell command program and shell scripts.
-Installing shell software on Windows requires extra effort.
+Installing Linux shell software on Windows requires extra effort.
 Default shell programs will already be installed in Linux environments, although others can additionally be installed.
 This page describes how to install different shell programs,
 as well as providing background on which shell to use.
@@ -10,7 +11,7 @@ as well as providing background on which shell to use.
 * [Installing a Shell on Linux](#installing-a-shell-on-linux)
 * [Installing Cygwin](#installing-cygwin)
 * [Installing MinGW](#installing-mingw)
-* [Installing Git for Windows](#installing-git-for-windows)
+* [Installing Git for Windows (Git Bash)](#installing-git-for-windows-git-bash)
 * [Installing the Linux Subsystem on Windows 10](#installing-the-linux-subsystem-on-windows-10)
 
 -------
@@ -57,6 +58,29 @@ $ which sh
 $ which bash
 ```
 
+The following tables present information about which Linux environment and shell to choose.
+When writing shell scripts, it is often necessary to support scripts on multiple Linux environments
+and therefore more than one of the following Linux environments may be used.
+
+**<p style="text-align: center;">
+Selecting a Windows Linux Environment
+</p>**
+
+| **Windows Linux Environment** | **Reasons to Use**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | **Reasons to Not Use** |
+|-----------|-------------------|-----------------------|
+| Cygwin    | <ul><li>Full-featured environment with access to many software components via Cygwin installer.</li><li>Direct access to Windows file system and software.</li><li>When working with Git, properly handles executable file permissions and Git file mode.</li></ul> | |
+| Git Bash (uses MinGW) | <ul><li>Use with Git command line to automate typical development environment tasks.</li></ul> | <ul><li>Installing additional software can be a challenge.</li><li>When working with Git, may NOT properly handle executable file permissions because of underlying Windows file system limitations.</li><li>`git` program handles Windows and Linux end of line but many MinGW programs shipped with Git Bash use Linux end of line, leading to confusion (software users need to understand when files are created with a Windows or Linux program and use `dos2unix` and `unix2dos` as needed.</li></ul>| |
+| MinGW     | <ul><li>Used with Fortran/C development environment.</li></ul> | Not as easy to install as Cygwin and Git Bash. |
+
+**<p style="text-align: center;">
+Selecting a Linux Shell
+</p>**
+
+| **Shell** | **Reasons to Use** | **Reasons to Not Use** |
+|-----------|-------------------|-----------------------|
+| `bash`    | <ul><li>Used for interactive sessions.</li><li>Provides useful features in addition to `sh` features.</li></ul> | <ul><li>Slower, takes more resources than `sh`.</li></ul>|
+| `sh`      | <ul><li>Runs fast, for cases where processes are repeated and need to complete quickly.</li></ul>| <ul><li>Does not offer some features that `bash` has.</li></ul>|
+
 ## ![Linux](images/linux-32.png)Installing a Shell on Linux ##
 
 In most cases, the default shell programs that are installed will be sufficient
@@ -88,7 +112,7 @@ See:
 
 * [Minimalist GNU for Windows](http://www.mingw.org/)
 
-## ![Git](images/git-bash-32.png)Installing Git for Windows ##
+## ![Git](images/git-bash-32.png)Installing Git for Windows (Git Bash) ##
 
 Git for Windows is often installed by software developers and others who are using the Git version control system
 to track versions of electronic files and collaborate with others on electronic file edits.
@@ -100,6 +124,8 @@ Git for Windows will also install MinGW and Git Bash.  See:
 
 The following explains how to enable/install the Linux Subsystem on Windows 10.
 Microsoft is now shipping a version of Linux to help developers.
-**OWF will attempt to improve on this documentation when time allows.**
 
 * [How to Install and Use the Linux Bash Shell on Windows 10](https://www.howtogeek.com/249966/how-to-install-and-use-the-linux-bash-shell-on-windows-10/)
+	+ As indicated above, after enabling the Windows Subsystem for Linux, visit the app store as indicated in the above instructions and
+	install a version of Linux.  Ubuntu is recommended.
+	+ As indicated above, after installing, specify a login and password that will be used in the Linux shell.

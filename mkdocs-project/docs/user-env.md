@@ -1,4 +1,4 @@
-# Learn Linux Shell / User Environment Basics #
+# Linux Shell / User Environment Basics #
 
 The command shell operates between the core operating system and other programs.
 Consequently, a certain amount of start-up information must be configured for the shell to do its work.
@@ -28,8 +28,8 @@ The following table summarizes software locations for each Linux environment.
 | Cygwin                        | `/`                                 | `C:\cygwin64`                         |
 | Git for Windows               | `/`                                 | `C:\Program Files\Git`                |
 | Linux                         | [Filesystem Hierarchy Standard on Wikipedia](https://en.wikipedia.org/wiki/Filesystem_Hierarchy_Standard) | Not applicable |
-| Linux Subsystem on Windows 10 | ?                                   | ?                                     |
-| MinGW                         | ?                                   | ?                                     |
+| Linux Subsystem on Windows 10 | `/`                                 | ?                                     |
+| MinGW                         | ?                                   | `C:\MinGW`                            |
 
 ## Location of User Files ##
 
@@ -43,12 +43,15 @@ for example after opening a command shell.
 | Environment                   | Linux User File Location (from Linux) | Linux User File Location (from Windows) | Windows User File Location (from Linux) | Windows User File Location (from Windows) |
 | ----------------------------- | ------------------------------------- | --------------------------------------- | --------------------------------------- | ----------------------------------------- |
 | Cygwin                        | `/home/user`                          | `C:\cygwin64\home\user`                 | `/cygdrive/C/Users/user`                | `C:\Users\user`                           |
-| Git for Windows               | `/c/Users/user`                       | `C:\Users\user`                         | `/c/Users/user`                         | `C:\Users\user`                           |
+| Git for Windows (Git Bash)    | `/c/Users/user`                       | `C:\Users\user`                         | `/c/Users/user`                         | `C:\Users\user`                           |
 | Linux                         | `/home/user`                          | Not applicable                          | Not applicable                          | Not applicable                            |
-| Linux Subsystem on Windows 10 | ?                                     | ?                                       | ?                                       | `C:\Users\user`                           |
-| MinGW                         | ?                                     | ?                                       | ?                                       | `C:\Users\user`                           |
+| Linux Subsystem on Windows 10 | `/home/user`                          | `C:\Users\sam\AppData\Local\Packages\CanonicalGroupLimited.UbuntuonWindows_abcd123etc\LocalState\rootfs\home\sam` | `/mnt/c`, etc. | `C:\Users\user` |
+| MinGW                         | ?                                     | `C:\MinGW\msys\1.0\home\user`           | ?                                       | `C:\Users\user`                           |
 
-Although the folders listed above use different conventions for Linux and Windows, they point to the same files on the computer.
+The Linux and Windows files may exist in the same location or may be separate.
+For example, Git Bash user files are in the same location as Windows user files.
+However, Cygdrive uses a folder for user files within Cygwin,
+while allowing access to Windows files (`/cygdrive/C/Users/user`).
 
 The home folder can be accessed programmatically using an environment variable, as [discussed in the Environment Variables section below](#environment-variables).
 

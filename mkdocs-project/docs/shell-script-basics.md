@@ -1,4 +1,4 @@
-# Learn Linux Shell / Shell Script Basics #
+# Linux Shell / Shell Script Basics #
 
 The following are Bourne shell tutorials found on the internet.
 Use the table of contents and index features of each site to find information about a specific
