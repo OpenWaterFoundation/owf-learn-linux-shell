@@ -6,7 +6,7 @@ site_name: Learn / Linux Shell
 pages:
 - Home: index.md
 - Introduction: introduction.md
-- Installing Shell Software: install.md
+- Select and Install Shell Software: install.md
 - User Environment Basics: user-env.md
 - Shell Script Basics: shell-script-basics.md
 - Shell Script Best Practices: best-practices.md

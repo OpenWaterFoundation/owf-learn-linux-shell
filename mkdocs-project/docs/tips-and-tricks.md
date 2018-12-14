@@ -1,4 +1,4 @@
-# Learn Linux Shell / Tips and Tricks #
+# Linux Shell / Tips and Tricks #
 
 This page provides tips and tricks to use in shell scripts.
 Most of these examples are for `sh` rather than `bash` or other shell because `sh`

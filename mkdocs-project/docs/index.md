@@ -1,4 +1,4 @@
-# Open Water Foundation / Learn Linux Shell #
+# Learn / Linux Shell #
 
 This documentation provides resources to learn how to use the Linux shell,
 which provides an interactive command line environment and ability to automate tasks with shell scripts.
