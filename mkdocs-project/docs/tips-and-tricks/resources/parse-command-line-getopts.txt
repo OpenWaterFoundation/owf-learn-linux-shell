@@ -1,0 +1,87 @@
+#!/bin/sh
+#
+# Shell script to demonstrate built-in getopts for parsing command options.
+# - Built-in getopts can only handle one-character options
+
+# Supporting functions, alphabetized...
+
+# Parse the command line and set variables to control logic
+parseCommandLine() {
+	local OPTIND opt h i o v
+	optspec=":hi:o:v"
+	while getopts $optspec opt; do
+		#echo "Command line option is $opt"
+		case $opt in
+			h) # -h  Print usage
+				printUsage
+				exit 0
+				;;
+			i) # -i inputFile  Get the input file
+				inputFile=$OPTARG
+				;;
+			o) # -o outputFile  Get the output file
+				outputFile=$OPTARG
+				;;
+			v) # -v  Print the version
+				printVersion
+				exit 0
+				;;
+			\?) # Unknown single-character option
+				echo ""
+				echo "Invalid option:  -$OPTARG" >&2
+				printUsage
+				exit 1
+				;;
+			:) # Option is recognized but it is missing an argument
+				echo ""
+				echo "Option -$OPTARG requires an argument" >&2
+				printUsage
+				exit 1
+				;;
+		esac
+	done
+}
+
+# Print the program usage
+# - calling code needs to exit with the appropriate status
+printUsage() {
+	echo ""
+	program=$(basename $0)
+	echo "$program [options]"
+	echo ""
+	echo "Example of how to use built-in getopts."
+	echo "Options are:"
+	echo ""
+	echo "-h               Print help."
+	echo "-i inputFile     Specify the input file."
+	echo "-o outputFile    Specify the output file."
+	echo "-v               Print version."
+	echo ""
+}
+
+# Print the program version
+# - calling code needs to exit with the appropriate status
+printVersion() {
+	echo ""
+	program=$(basename $0)
+	echo "$program version:  $version $versionDate"
+	echo ""
+}
+
+# Main entry point into shell
+version="1.0.0"
+versionDate="2018-12-20"
+
+# Initialize variables
+inputFile=""
+outputFile=""
+
+# Parse the command line options
+# - pass all arguments to the function
+parseCommandLine "$@"
+
+# Print input and output file
+echo "Input file:   $inputFile"
+echo "Output file:  $outputFile"
+
+exit 0

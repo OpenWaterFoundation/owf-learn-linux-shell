@@ -11,7 +11,9 @@ The examples shown should also work for `basn` and other shells in many cases.
 * [Determine the operating system](#determine-the-operating-system)
 * [Echo colored text to console](#echo-colored-text-to-console)
 * [Ensure that script runs on Linux and Windows](#ensure-that-script-runs-on-linux-and-windows)
-* [Parsing command line arguments](#parsing-command-line-arguments)
+* [Parsing command line options](#parsing-command-line-options)
+	+ [Parsing command line options with built-in getopts](#parsing-command-line-options-with-built-in-getopts)
+	+ [Parsing command line options with `getopt` command](#parsing-command-line-options-with-getopt-command)
 
 -----------------
 
@@ -226,59 +228,75 @@ Examples:
 
 * [Open Water Foundation git-check.sh](https://github.com/OpenWaterFoundation/owf-util-git/blob/master/build-util/git-util/git-check.sh)
 
-## Parsing command line arguments ##
+## Parsing command line options ##
 
-A common technical task is to parse command line argument parameters.
-This can be implemented using the `sh` built-in `getopts` feature.  See:
+A common task when writing a script is to parse command line options.
+Options may take various forms including:
+
+* `-a` - single character option
+* `-a xyz` - single character option with an argument
+* `-abc` - long option with single dash
+* `-abc xyz` - long option with single dash with an argument
+* `--aabc` - long option with multiple dashes
+* `--aabc xyz` - long option with multiple dashes with an argument
+* `--aabc=xyz` - long option with multiple dashes and assignment using equal sign 
+
+Current Linux conventions are to use single dash single character (`-a`) or
+double dash long option (`--abc`).  The single dash long option (`-abc`) should be avoided by convention.
+The options can be parsed by iterating through the command line options with custom code.
+However, the following sections illustrate how to parse options using standard Linux shell features.
+
+### Parsing command line options with built-in getopts ###
+
+Command line parsing can be implemented using the `sh` built-in `getopts` feature.
+This approach only supports single character options.  See:
 
 * [`getopts` documentation](http://pubs.opengroup.org/onlinepubs/9699919799.2008edition/utilities/getopts.html)
 * [Using getopts inside a Bash function](https://stackoverflow.com/questions/16654607/using-getopts-inside-a-bash-function)
 
 For example, create a function similar to the following.
 The use of `local` is necessary as explained in the second link above.
-The `while` command has specific syntax where colons after an option letter indicate whether a trailing argument is expected.
-For exmaple, in the following, the `-i` and `-o` arguments are used to specify filenames.
-
-**Need to enhance the example to illustrate use of `--arg value` and `--arg=value`.**
-
+The built-in `getopts` command has specific syntax where colons after an option letter indicate whether a trailing argument is expected.
+For example, in the following, the `-i` and `-o` arguments are used to specify filenames.
+The colon at the start of the `optstring` indicates that options that require an argument
+should result in the `:` case statement should be executed to handle the error.
 
 ```
 # Parse the command line and set variables to control logic
 parseCommandLine() {
-        #echo "Parsing command line..."
-        local OPTIND opt b h i o v
-        while getopts :bhi:o:v opt; do
-                echo "Command line option is ${opt}"
-                case $opt in
-                        b) # Run in batch mode (no prompts)
-                                batchMode="yes"
-                                ;;
-                        h) # Usage
-                                printUsage
-                                exit 0
-                                ;;
-                        i) # Installer tar.gz file
-                                installerTargzFile=$OPTARG
-                                setInstallerTargzFileAbs
-                                ;;
-                        o) # Installer output folder (installed location)
-                                installFolder=$OPTARG
-                                setInstallFolderAbs
-                                ;;
-                        v) # version
-                                printVersion
-                                exit 0
-                                ;;
-                        \?)
-                                echo "Invalid option:  -$OPTARG" >&2
-                                exit 1
-                                ;;
-                        :)
-                                echo "Option -$OPTARG requires an argument" >&2
-                                exit 1
-                                ;;
-                esac
-        done
+	local OPTIND opt h i o v
+	optstring=":hi:o:v"
+	while getopts $optstring opt; do
+		#echo "Command line option is $opt"
+		case $opt in
+			h) # -h  Print usage
+				printUsage
+				exit 0
+				;;
+			i) # -i inputFile  Get the input file
+				inputFile=$OPTARG
+				;;
+			o) # -o outputFile  Get the output file
+				outputFile=$OPTARG
+				;;
+			v) # -v  Print the version
+				printVersion
+				exit 0
+				;;
+			\?) # Unknown single-character option
+				echo ""
+				echo "Invalid option:  -$OPTARG" >&2
+				printUsage
+				exit 1
+				;;
+			:) # Option is recognized but it is missing an argument
+				echo ""
+				echo "Option -$OPTARG requires an argument" >&2
+				printUsage
+				exit 1
+				;;
+		esac
+	done
 }
 ```
 
@@ -287,3 +305,13 @@ This function needs to be called by passing the original command line arguments:
 ```
 parseCommandLine "$@"
 ```
+
+[See the full working example that can be run on a Linux command line](resources/parse-command-line-getopts.txt)
+(link will display text file but can save as `.sh` or no extension to run on a computer).
+
+### Parsing command line options with `getopt` command ###
+
+The built-in `getopts` syntax is limited in that it cannot handle long options.
+This limitation can be overcome using the `getopts` Linux command (not built into the shell).
+
+**Need to add an example.**
