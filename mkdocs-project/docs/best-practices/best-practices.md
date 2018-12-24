@@ -1,4 +1,4 @@
-# Learn Linux Shell / Shell Script Best Practices #
+# Linux Shell / Shell Script Best Practices #
 
 This page lists best practices, based on industry standards and first-hand experience.
 
@@ -114,20 +114,18 @@ redirection.
 
 A shell script is only truly useful if someone other than the original author can use it.
 Therefore, all shell scripts should have documentation in one or more forms,
-depending on the significance of the script.
-For example, a script that serves as the entry point to running a major program
-should have more (or at least more complete) documentation.
+depending on the significance of the script, including:
 
 * Code comments, enough to understand the purpose, and good in-line comments.
 * A `printUsage()` or similar function that prints basic usage,
-run via -h --help, or by default to show user available command options.
+run via `-h` or `--help`, or by default to show user available command options.
 * `README.md` file in the repository.
 * User documentation, such as this documentation.
 
 ## Include useful web resource links in shell script comments ##
 
 Technologies can be complicated and shell programming is no different.
-Often it is necessary to search the web for a solution or comparative example to perform a task.
+It is often necessary to search the web for a solution or comparative example to perform a task.
 Once the solution is coded, it can be difficult to understand the approach.
 Therefore, include a comment in the code with the link to the web resource that explained the solution.
 Don't make the next programmer relearn the same material from terse code.
@@ -152,3 +150,7 @@ especially when a script becomes long.
 Every script author should consider using functions to organize script functionality.
 Functions also simplify sharing code between scripts since functions can be copied and pasted
 between scripts.
+
+The alternative to writing a function is to write a separate script that can be called
+with an appropriate command line.
+This approach is OK as long as the called script is located in a location that can be found by the calling script.

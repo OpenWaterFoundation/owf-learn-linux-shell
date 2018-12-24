@@ -3,7 +3,8 @@
 Selecting a Linux shell will define the features of the shell scripting language.
 Linux shell software must be installed before running the shell command program and shell scripts.
 Installing Linux shell software on Windows requires extra effort.
-Default shell programs will already be installed in Linux environments, although others can additionally be installed.
+Default shell programs such as `sh` and `bash` will already be installed in Linux environments,
+although others can additionally be installed.
 This page describes how to install different shell programs,
 as well as providing background on which shell to use.
 
@@ -18,7 +19,7 @@ as well as providing background on which shell to use.
 
 ## Choosing a Linux Shell ##
 
-Many Linux shells are available:
+Many Linux shells are available, often deriving from a common ancestry such as `sh`:
 
 * [Comparison of command shells (Wikipedia)](https://en.wikipedia.org/wiki/Comparison_of_command_shells)
 
@@ -28,12 +29,11 @@ Choosing a command shell typically boils down to a few considerations, including
 * what is the availability of the shell on other environments (how portable)?
 * does a shell adhere to standards?
 * what is the functionality of the shell?
-* what is the performance of the shell?
+* what is the performance of the shell (how fast does it load and run)?
 
 These questions may be of little concern to the average shell user, especially those who just
 want to get some work done and are not professional programmers.
-In this case, the choice may be between a POSIX standards shell like `sh` and a popular shell with extensions such as `bash`
-that make some tasks easier.
+In this case, the choice of shell may depend on what was used in an example that was found on the internet.
 
 The Bourne shell (`sh` program) is distributed with most Linux systems and provides a common set of features
 intended for automated tasks.
@@ -41,6 +41,26 @@ The `bash` shell is also distributed with most Linux systems and is intended for
 shells, meaning those that provide a command prompt that users interact with.
 The `bash` shell is slower to start up and run than `sh` and therefore `sh` is preferred when
 performance is a consideration.  The `bash` shell provides useful command line features such as command completion.
+See:
+
+* [`sh` man page](http://man7.org/linux/man-pages/man1/sh.1p.html)
+* [`bash` man page](http://man7.org/linux/man-pages/man1/bash.1.html)
+
+Note that in some systems shells have been aliased to a specific version, for example:
+[`sh` same as `bash`](https://linux.die.net/man/1/sh).
+To determine whether this is occurring, do a long listing on the program files to see if symbolic links are used or
+the file sizes the same.  If the files are the same size, the `diff` program can be used to confirm.
+For example, the following, run on Cygwin, indicates that `sh` and `bash` are equivalent.
+This is important because different Linux operating systems may have different defaults
+and it is important to know what features are available in a shell to ensure portable scripts.
+
+```
+$ ls -l /bin/sh /bin/bash
+-rwxr-xr-x 2 SystemAdmin None 723K Jan 27  2017 /bin/bash*
+-rwxr-xr-x 2 SystemAdmin None 723K Jan 27  2017 /bin/sh*
+$ diff /bin/sh /bin/bash
+$
+```
 
 The ultimate choice will depend on the programmer that creates a shell script.
 Shell script programmers should seek to be adept at `sh` and learn where `bash` provides benefits.
@@ -78,10 +98,10 @@ Selecting a Linux Shell
 
 | **Shell** | **Reasons to Use** | **Reasons to Not Use** |
 |-----------|-------------------|-----------------------|
-| `bash`    | <ul><li>Used for interactive sessions.</li><li>Provides useful features in addition to `sh` features.</li></ul> | <ul><li>Slower, takes more resources than `sh`.</li></ul>|
+| `bash`    | <ul><li>Used for interactive sessions.</li><li>Provides useful features in addition to `sh` features.</li></ul> | <ul><li>Slower, takes more resources than `sh`, unless they are equivalent, in which case `sh` and `bash` take the same resources.</li></ul>|
 | `sh`      | <ul><li>Runs fast, for cases where processes are repeated and need to complete quickly.</li></ul>| <ul><li>Does not offer some features that `bash` has.</li></ul>|
 
-## ![Linux](images/linux-32.png)Installing a Shell on Linux ##
+## ![Linux](../images/linux-32.png)Installing a Shell on Linux ##
 
 In most cases, the default shell programs that are installed will be sufficient
 but sometimes it is useful to install other shell programs.
@@ -92,7 +112,7 @@ usually use an installer such as `apt-get`.
 
 Refer to Linux software installation instructions for the Linux version.
 
-## ![Cygwin](images/cygwin-32.png)Installing Cygwin ##
+## ![Cygwin](../images/cygwin-32.png)Installing Cygwin ##
 
 The Cygwin software is a free and open source Linux implementation that runs on Windows.
 The Cygwin shells can run Windows programs because Cygwin programs are compiled to run on Windows.
@@ -112,7 +132,7 @@ See:
 
 * [Minimalist GNU for Windows](http://www.mingw.org/)
 
-## ![Git](images/git-bash-32.png)Installing Git for Windows (Git Bash) ##
+## ![Git](../images/git-bash-32.png)Installing Git for Windows (Git Bash) ##
 
 Git for Windows is often installed by software developers and others who are using the Git version control system
 to track versions of electronic files and collaborate with others on electronic file edits.
@@ -120,7 +140,7 @@ Git for Windows will also install MinGW and Git Bash.  See:
 
 * [Git](https://git-scm.com/) - select the ***Downloads*** link and then ***Windows***
 
-## ![Windows](images/windows-32.png)Installing the Linux Subsystem on Windows 10 ##
+## ![Windows](../images/windows-32.png)Installing the Linux Subsystem on Windows 10 ##
 
 The following explains how to enable/install the Linux Subsystem on Windows 10.
 Microsoft is now shipping a version of Linux to help developers.

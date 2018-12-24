@@ -1,0 +1,130 @@
+#!/bin/sh
+#
+# Shell script to demonstrate use of Linux getopt command for parsing command options.
+# - Built-in getopts can only handle one-character options so getopt command is necessary
+
+# Supporting functions, alphabetized...
+
+# Parse the command line and set variables to control logic
+parseCommandLine() {
+	# Special case that nothing was provided on the command line so print usage
+	# - include this if it is desired to print usage by default
+	if [ "$#" -eq 0 ]; then
+		printUsage
+		exit 0
+	fi
+	# Indicate specification for single character options
+	# - 1 colon after an option indicates that an argument is required
+	# - 2 colons after an option indicates that an argument is optional, must use -o=argument syntax
+	optstring="hi:o::v"
+	# Indicate specification for long options
+	# - 1 colon after an option indicates that an argument is required
+	# - 2 colons after an option indicates that an argument is optional, must use --option=argument syntax
+	optstringLong="help,input-file:,output-file::,version"
+	# Parse the options using getopt command
+	# - the -- is a separator between getopt options and parameters to be parsed
+	# - output is simple space-delimited command line
+	# - error message will be printed if unrecognized option or missing parameter but status will be 0
+	# - if an optional argument is not specified, output will include empty string ''
+	GETOPT_OUT=$(getopt --options $optstring --longoptions $optstringLong -- "$@")
+	exitCode=$?
+	if [ $exitCode -ne 0 ]; then
+		echo ""
+		printUsage
+		exit 1
+	fi
+	# The following constructs the command by concatenating arguments
+	# - the $1, $2, etc. variables are set as if typed on the command line
+	# - special cases like --option=value and missing optional arguments are generically handled
+	#   as separate parameters so shift can be done below
+	eval set -- "$GETOPT_OUT"
+	# Loop over the options
+	# - the error handling will catch cases were argument is missing
+	# - shift over the known number of options/arguments
+	while true; do
+		#echo "Command line option is $opt"
+		case "$1" in
+			-h|--help) # -h or --help  Print usage
+				printUsage
+				exit 0
+				;;
+			-i|--input-file) # -i inputFile or --input-file inputFile  Specify the input file
+				# Input file must be specified so $2 can be used
+				inputFile=$2
+				shift 2
+				;;
+			-o|--output-file) # -o outputFile or --output-file outputFile  Specify the output file
+				case "$2" in
+					"")  # No output file so use default (check elsewhere)
+						outputFile="stdout"
+						shift 2  # Because output file is an empty string $2=''
+						;;
+					*) # Output file has been specified so use it
+						outputFile=$2
+						shift 2  # Because output file is $2
+						;;
+				esac
+				;;
+			-v|--version) # -v or --version  Print the version
+				printVersion
+				exit 0
+				;;
+			--) # No more arguments
+				shift
+				break;;
+			*) # Unknown option - will never get here because getopt catches up front
+				echo ""
+				echo "Invalid option $1." >&2
+				printUsage
+				exit 1
+				;;
+		esac
+	done
+}
+
+# Print the program usage
+# - calling code needs to exit with the appropriate status
+printUsage() {
+	echo ""
+	echo "$program [options]"
+	echo ""
+	echo "Example of how to use built-in getopts."
+	echo "Options are:"
+	echo ""
+	echo "-h                          Print help."
+	echo "--help"
+	echo "-i inputFile                Specify the input file."
+	echo "--input-file inputFile"
+	echo "-o outputFile               Specify the output file (default is standard output)."
+	echo "--output-file [outputFile]"
+	echo "-v                          Print version."
+	echo "--version"
+	echo ""
+}
+
+# Print the program version
+# - calling code needs to exit with the appropriate status
+printVersion() {
+	echo ""
+	echo "$program version:  $version $versionDate"
+	echo ""
+}
+
+# Main entry point into shell
+program=$(basename $0)
+version="1.0.0"
+versionDate="2018-12-20"
+
+# Initialize variables
+inputFile=""
+outputFile=""
+
+# Parse the command line options
+# - pass all arguments to the function
+parseCommandLine "$@"
+
+# Print input and output file
+echo "Input file:   $inputFile"
+echo "Output file:  $outputFile"
+
+exit 0

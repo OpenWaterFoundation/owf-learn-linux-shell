@@ -1,9 +1,9 @@
-# Linux Shell / Tips and Tricks #
+# Linux Shell / Useful Script Examples #
 
-This page provides tips and tricks to use in shell scripts.
-Most of these examples are for `sh` rather than `bash` or other shell because `sh`
-is intended for faster-executing scripts rather than interactive login shells.
-The examples shown should also work for `basn` and other shells in many cases.
+This page provides examples of useful shell scripts or nuggets of code that can be used in scripts.
+Most of these examples are for `sh`.
+However, the examples shown should also work for `bash` and other shells in most cases
+(if not, equivalent syntax can be determined).
 
 * [Command to do nothing](#command-to-do-nothing)
 * [Control echo of script commands as script runs](#control-echo-of-script-commands-as-script-runs)
@@ -51,7 +51,7 @@ To turn on echo/trace for an entire script, the `-x` option can be added in the
 ```
 
 This will cause every command in the script to print to the console before it is executed.
-This is normally used only in troubleshooting.
+This is normally used only in troubleshooting or during development.
 
 ### Run a script with echo/trace turned on
 
@@ -104,6 +104,7 @@ The `$0` command argument contains the script name, which can be a file or path.
 The above logic therefore changes to the directory in which the script resides.
 The `&&` indicates to run the second command after the first command, in this case the `pwd` command.
 The output is assigned to the `scriptFolder` variable, which can be used in other logic.
+This approach may not work if symbolic links are involved and additional information is available on the web.
 
 Examples:
 
@@ -264,6 +265,12 @@ should result in the `:` case statement should be executed to handle the error.
 ```
 # Parse the command line and set variables to control logic
 parseCommandLine() {
+	# Special case that nothing was provided on the command line so print usage
+	# - include this if it is desired to print usage by default
+	if [ "$#" -eq 0 ]; then
+		printUsage
+		exit 0
+	fi
 	local OPTIND opt h i o v
 	optstring=":hi:o:v"
 	while getopts $optstring opt; do
@@ -307,11 +314,142 @@ parseCommandLine "$@"
 ```
 
 [See the full working example that can be run on a Linux command line](resources/parse-command-line-getopts.txt)
-(link will display text file but can save as `.sh` or no extension to run on a computer).
+(The link will display text file but can save as `.sh` or no extension to run on a computer.
+If necessary, run with `sh parse-command-line-getopts.txt`).
 
 ### Parsing command line options with `getopt` command ###
 
 The built-in `getopts` syntax is limited in that it cannot handle long options.
-This limitation can be overcome using the `getopts` Linux command (not built into the shell).
+This limitation can be overcome using the `getopts` Linux command (not built into the shell but instead a command that is called).  See:
 
-**Need to add an example.**
+* [getopt man page](https://linux.die.net/man/1/getopt)
+* [TutorialsPoint getopt tutorial](https://www.tutorialspoint.com/unix_commands/getopt.htm)
+
+The code below is an example of a function to parse a command line using `getopt` command.
+Note the following:
+
+* The `getopt` command can handle short (`-a`) and long (`--abc`) arguments for cases
+of no argument, required argument, and optional argument.
+* If an option has optional argument, the syntax `-o=argument` or `--option=argument` must be used.
+* Handling single-dash long option (`-abc`) is not an explicit feature.
+Errors may be generated that `b` and `c` are unrecognized single-character options.
+* The `getopt` command essentially parses and recreates the command line so that
+special cases are handled:
+	+ Missing optional arguments are output as empty single-quoted string.
+	+ Option specified as `--option=argument` is output as space-delimited `--option argument`.
+* If `-h` is specified before `--`, the `getopt` help will be printed.
+Make sure to put the command line to parse after the `getopt` `--` option.
+* The `case` statement that is used to check for options uses the full option value, with leading dash(es).
+This is different than the built-in `getopts` feature, in which dashes are not used in the `case` statement.
+* The code below requires using `shift` to advance parsing through the options and arguments.
+This is foolproof because `getopt` reformats the original command line into simpler syntax
+and also generates an error if bad input is detected.
+* There is no way to do custom error handling such as for missing argument or unknown argument
+because `getopt` generates the error.
+There is different from built-in `getopts` that allows a colon to be specified at the beginning of `optstring`.
+
+The `getopt` call by itself does not print anything:
+
+```
+$ getopt --options "hi:o::v"
+```
+
+However, passing options does output a "nice" command line.
+Note that the `--` is output to indicate the end of command line
+and an empty string has been inserted for output file because it was not specified.
+
+```
+$ getopt --options "hi:o::v" -- -h -v -o
+ -h -v -o '' --
+```
+
+The following is code for a function to parse the command line:
+
+```
+# Parse the command line and set variables to control logic
+parseCommandLine() {
+	# Special case that nothing was provided on the command line so print usage
+	# - include this if it is desired to print usage by default
+	if [ "$#" -eq 0 ]; then
+		printUsage
+		exit 0
+	fi
+	# Indicate specification for single character options
+	# - 1 colon after an option indicates that an argument is required
+	# - 2 colons after an option indicates that an argument is optional, must use -o=argument syntax
+	optstring="hi:o::v"
+	# Indicate specification for long options
+	# - 1 colon after an option indicates that an argument is required
+	# - 2 colons after an option indicates that an argument is optional, must use --option=argument syntax
+	optstringLong="help,input-file:,output-file::,version"
+	# Parse the options using getopt command
+	# - the -- is a separator between getopt options and parameters to be parsed
+	# - output is simple space-delimited command line
+	# - error message will be printed if unrecognized option or missing parameter but status will be 0
+	# - if an optional argument is not specified, output will include empty string ''
+	GETOPT_OUT=$(getopt --options $optstring --longoptions $optstringLong -- "$@")
+	exitCode=$?
+	if [ $exitCode -ne 0 ]; then
+		echo ""
+		printUsage
+		exit 1
+	fi
+	# The following constructs the command by concatenating arguments
+	# - the $1, $2, etc. variables are set as if typed on the command line
+	# - special cases like --option=value and missing optional arguments are generically handled
+	#   as separate parameters so shift can be done below
+	eval set -- "$GETOPT_OUT"
+	# Loop over the options
+	# - the error handling will catch cases were argument is missing
+	# - shift over the known number of options/arguments
+	while true; do
+		#echo "Command line option is $opt"
+		case "$1" in
+			-h|--help) # -h or --help  Print usage
+				printUsage
+				exit 0
+				;;
+			-i|--input-file) # -i inputFile or --input-file inputFile  Specify the input file
+				# Input file must be specified so $2 can be used
+				inputFile=$2
+				shift 2
+				;;
+			-o|--output-file) # -o outputFile or --output-file outputFile  Specify the output file
+				case "$2" in
+					"")  # No output file so use default (check elsewhere)
+						outputFile="stdout"
+						shift 2  # Because output file is an empty string $2=''
+						;;
+					*) # Output file has been specified so use it
+						outputFile=$2
+						shift 2  # Because output file is $2
+						;;
+				esac
+				;;
+			-v|--version) # -v or --version  Print the version
+				printVersion
+				exit 0
+				;;
+			--) # No more arguments
+				shift
+				break;;
+			*) # Unknown option - will never get here because getopt catches up front
+				echo ""
+				echo "Invalid option $1." >&2
+				printUsage
+				exit 1
+				;;
+		esac
+	done
+}
+```
+
+This function needs to be called by passing the original command line arguments:
+
+```
+parseCommandLine "$@"
+```
+
+[See the full working example that can be run on a Linux command line](resources/parse-command-line-getopt.txt)
+(The link will display text file but can save as `.sh` or no extension to run on a computer.
+If necessary, run with `sh parse-command-line-getopt.txt`).
