@@ -50,8 +50,8 @@ for example after opening a command shell.
 
 The Linux and Windows files may exist in the same location or may be separate.
 For example, Git Bash user files are in the same location as Windows user files.
-However, Cygdrive uses a folder for user files within Cygwin,
-while allowing access to Windows files (`/cygdrive/C/Users/user`).
+However, the Cygwin installation has one set of files under `/home` for user files specific to Cygwin
+and also provides the `/cygdrive` folder to access Windows user files (`/cygdrive/C/Users/user`).
 
 The home folder can be accessed programmatically using an environment variable, as [discussed in the Environment Variables section below](#environment-variables).
 
@@ -86,6 +86,8 @@ script with the `sh` command shell program located in the standard Linux softwar
 
 It is common to use the `bash` command shell as the login shell and other command shells such
 as `sh` to run other programs.
+For example, `sh` may be faster to load and run if it has fewer features.
+However, on some systems `sh` and `bash` may be equivalent and have no difference in performance.
 
 ## Shell Configuration Files ##
 

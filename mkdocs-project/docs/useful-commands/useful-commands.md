@@ -1,11 +1,11 @@
-# Linux Shell / Common Tasks #
+# Linux Shell / Useful Command Examples #
 
-This page provides examples for common shell script tasks.
-Some of the examples are simply useful Linux commands, but can be placed in shell scripts for reuse.
-More examples will be added.
+This page provides examples of useful Linux commands.
+The commands can be run from the command line or used in a shell scripts.
+See also [Useful Script Examples](../useful-scripts/useful-scripts).
 
 * [Search Files for a String](#search-files-for-a-string)
-* [Searching for Files](#searching-for-files)
+* [Search for Files](#search-for-files)
 
 --------------
 
@@ -25,7 +25,7 @@ The following finds finds including the string `error` and then lists that do no
 $ grep -ir 'error' | grep -v 'help'
 ```
 
-## Searching for Files
+## Search for Files ##
 
 The Linux `find` command is used to search for files with name matching a literal string or pattern.
 For example, use the following to find log files, searching the current folder (`.`) and below:

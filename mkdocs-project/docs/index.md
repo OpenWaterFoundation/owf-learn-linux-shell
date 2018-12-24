@@ -3,14 +3,22 @@
 This documentation provides resources to learn how to use the Linux shell,
 which provides an interactive command line environment and ability to automate tasks with shell scripts.
 Linux shell scripts are useful for memorializing computational steps and automating repetitive tasks.
-Linux shells are of course available on Linux computers and are also available on Windows.
+Linux shell environments are of course available on Linux computers and are also available on Windows via
+Cygwin, Git for Windows (Git Bash), MinGW, Linux Subsystem for Windows, or other software.
+See the [Select and Install Shell Software](../install/install) section for more information.
 Anyone that desires to automate data processing tasks should consider using Linux shell scripts.
+Note that the term "Linux Shell" is used throughout rather than "Unix Shell" given the popularity of Linux,
+and the information generally applies to the Mac computers.
+
+The alternative to Linux shell scripts on Windows is [batch files](https://en.wikipedia.org/wiki/Batch_file) and
+[PowerShell scripts](https://en.wikipedia.org/wiki/PowerShell),
+which are not discussed in this documentation except when comparison is enlightening.
 
 More advanced programming can be performed with other languages.
 Python is recommended given its ease of use, popularity, and functionality.
 However, even when a programming language could be used to write a software program,
 the Linux shell is still useful for ad hoc tasks such as searching and reformatting files
-and stringing together computation tasks using existing programs.
+and stringing together computation tasks using existing programs such as Linux commands.
 
 This documentation has been written based on experience using Linux shells at the Open Water Foundation.
 
@@ -26,11 +34,11 @@ See also other [OWF learning resources](http://learn.openwaterfoundation.org).
 ## How to Use this Documentation ##
 
 The documentation is organized in order of information and tasks necessary to setup a Linux shell environment,
-learn about shell programming, and write shell scripts for useful tasks.
+learn about shell programming, learn about useful commands, and learn useful script examples.
 
 This documentation is not intended to be a full reference for Linux shells but focuses on topics that
 will help understand important technical concepts and be successful with Linux shells.
-See the [Resources section](resources) for general information about Linux shells.
+See the [Resources section](../resources/resources) for general information about Linux shells.
 
 Use the navigation menu provided on the left side of the page to navigate the documentation sections within the full document.
 Use the navigation menu provided on the right side of the page to navigate the documentation sections with a page.
@@ -49,4 +57,5 @@ The source files for this documentation are maintained in a GitHub repository:  
 
 ## Release Notes ##
 
-See the [Release Notes in the GitHub project repository](https://github.com/OpenWaterFoundation/owf-learn-linux-shell#release-notes).
+See the [Release Notes in the GitHub project repository](https://github.com/OpenWaterFoundation/owf-learn-linux-shell#release-notes),
+although the [GitHub issues](https://github.com/OpenWaterFoundation/owf-learn-linux-shell/issues) are more often used to track changes.

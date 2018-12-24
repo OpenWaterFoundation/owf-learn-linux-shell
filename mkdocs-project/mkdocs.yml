@@ -5,15 +5,15 @@
 site_name: Learn / Linux Shell
 pages:
 - Home: index.md
-- Introduction: introduction.md
-- Select and Install Shell Software: install.md
-- User Environment Basics: user-env.md
-- Shell Script Basics: shell-script-basics.md
-- Shell Script Best Practices: best-practices.md
-- Examples for Common Tasks: common-tasks.md
-- Tips and Tricks: tips-and-tricks/tips-and-tricks.md
+- Introduction: introduction/introduction.md
+- Select and Install Shell Software: install/install.md
+- User Environment Basics: user-env/user-env.md
+- Shell Script Basics: shell-script-basics/shell-script-basics.md
+- Shell Script Best Practices: best-practices/best-practices.md
+- Useful Command Examples: useful-commands/useful-commands.md
+- Useful Script Examples: useful-scripts/useful-scripts.md
 - Troubleshooting: troubleshooting/troubleshooting.md
-- Resources: resources.md
+- Resources: resources/resources.md
 # ------- configuration properties ---------------
 # Use Material theme
 # - installation notes:  https://github.com/squidfunk/mkdocs-material
