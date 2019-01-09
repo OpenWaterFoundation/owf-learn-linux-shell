@@ -432,7 +432,8 @@ parseCommandLine() {
 				;;
 			--) # No more arguments
 				shift
-				break;;
+				break
+				;;
 			*) # Unknown option - will never get here because getopt catches up front
 				echo ""
 				echo "Invalid option $1." >&2
