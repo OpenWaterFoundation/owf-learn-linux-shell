@@ -3,7 +3,7 @@
 # Reference: http://www.mkdocs.org/user-guide/configuration/
 #
 site_name: Learn / Linux Shell
-pages:
+nav:
 - Home: index.md
 - Introduction: introduction/introduction.md
 - Select and Install Shell Software: install/install.md
@@ -15,16 +15,29 @@ pages:
 - Troubleshooting: troubleshooting/troubleshooting.md
 - Resources: resources/resources.md
 # ------- configuration properties ---------------
-# Use Material theme
-# - installation notes:  https://github.com/squidfunk/mkdocs-material
-theme: material
-# Don't include the URL because don't really want direct editing on content and editor icons are irritating
-# repo_url:  https://github.com/OpenWaterFoundation/owf-learn-linux-shell
-site_description:  Open Water Foundation Learn Linux Shell
-site_author:  Open Water Foundation
-site_favicon:  'images/OWF-Logo-Favicon-32x32.png'
-copyright:  Copyright Open Water Foundation
+# Alphabetize
+# ------------------------------------------------
+copyright:  Copyright 2017-2019, Open Water Foundation
+# ------------------------------------------------
 # Extra options
 # Use extra CSS to customize styles, based on theme
 extra_css:
 - 'css/extra-material-theme.css'
+# ------------------------------------------------
+# # Google Analytics
+# - see:  https://squidfunk.github.io/mkdocs-material/getting-started/#google-analytics
+google_analytics:
+ - 'UA-135465513-1'
+ - auto
+# ------------------------------------------------
+# Don't include the URL because don't really want direct editing on content and editor icons are irritating
+# repo_url:  https://github.com/OpenWaterFoundation/owf-learn-linux-shell
+# ------------------------------------------------
+site_author:  Open Water Foundation
+site_description:  Open Water Foundation Learn Linux Shell
+# ------------------------------------------------
+# Use Material theme
+# - installation notes:  https://github.com/squidfunk/mkdocs-material
+theme:
+  favicon: 'images/OWF-Logo-Favicon-32x32.ico'
+  name: material
