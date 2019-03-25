@@ -1,0 +1,3 @@
+# Repositories that comprise the product
+# - assumes that local folder name will match the repository name
+owf-learn-linux-shell

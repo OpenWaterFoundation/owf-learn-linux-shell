@@ -46,6 +46,13 @@ parseCommandLine() {
 				;;
 		esac
 	done
+	# Get a list of all command line options that do not correspond to dash options.
+	# - These are "non-option" arguments.
+	# - For example, one or more file or folder names that need to be processed.
+	# - If multiple values, they will be delimited by spaces.
+	# - Command line * will result in expansion to matching files and folders.
+	shift $((OPTIND-1))
+	additionalOpts=$*
 }
 
 # Print the program usage
@@ -53,7 +60,7 @@ parseCommandLine() {
 printUsage() {
 	echo ""
 	program=$(basename $0)
-	echo "$program [options]"
+	echo "$program [options] other-vals"
 	echo ""
 	echo "Example of how to use built-in getopts."
 	echo "Options are:"
@@ -75,12 +82,13 @@ printVersion() {
 }
 
 # Main entry point into shell
-version="1.0.0"
-versionDate="2018-12-20"
+version="1.1.0"
+versionDate="2019-03-24"
 
 # Initialize variables
 inputFile=""
 outputFile=""
+additionalOpts=""
 
 # Parse the command line options
 # - pass all arguments to the function
@@ -89,5 +97,6 @@ parseCommandLine "$@"
 # Print input and output file
 echo "Input file:   $inputFile"
 echo "Output file:  $outputFile"
+echo "Additional options:  $additionalOpts"
 
 exit 0
