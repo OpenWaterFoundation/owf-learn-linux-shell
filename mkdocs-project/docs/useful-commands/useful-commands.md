@@ -4,22 +4,37 @@ This page provides examples of useful Linux commands.
 The commands can be run from the command line or used in a shell scripts.
 See also [Useful Script Examples](../useful-scripts/useful-scripts).
 
+* [Counting Matches](#counting-matches)
 * [Search Files for a String](#search-files-for-a-string)
 * [Search for Files](#search-for-files)
 
 --------------
 
+## Counting Matches ##
+
+It is often helpful to count instances of a match,
+for example how many files contain a string.
+This can be used to search code for a pattern that needs attention.
+The following uses the `grep` command to search for a pattern and count the number of matching files.
+The `wc` (word count) command is used with `-l` to count the number of lines.
+See the examples of search commands to modify the search.
+
+```
+$ grep 'somestring' * | wc -l
+```
+
 ## Search Files for a String ##
 
 The Linux `grep` command is useful for searching a file, for example, the following searches for the
-pattern by ignoring case and recursively searching all files in the current and child folders:
+pattern by ignoring case (`-i`) and recursively searching (`-r`) all files in the current and child folders:
 
 ```sh
 $ grep -ir 'pattern'
 $ grep -ir 'error'
 ```
 
-The following finds finds including the string `error` and then lists that do not contain `help` using the `-v` option:
+The following finds finds including the string `error` and then filters the
+list to files that do not contain `help` using the `-v` option.
 
 ```sh
 $ grep -ir 'error' | grep -v 'help'

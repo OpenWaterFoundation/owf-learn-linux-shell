@@ -192,11 +192,68 @@ All folders in the `PATH` are searched to find the program name and if found the
 If `PATH` environment variable does not contain the required folder,
 then the `PATH` environment variable can be modified to add the folder.
 This is typically done in shell startup files, such as the `.bash_profile` or `.bashrc` file.
+It is typical to add more specific folders at the beginning of the path so that programs
+are found before system copies of the same programs, using syntax like the following:
+
+```
+export PATH="/some/folder:${PATH}"
+```
 
 Another option is to edit the `PATH` environment variable in a "setup" shell script file that is
 run from the command line.
 The disadvantage to this approach is that it must be run each time the setting is configured.
 The advantage of this approach is that configuration can be isolated from the general user environment.
+To ensure that the `PATH` is not modified each time that the setup script is run,
+and eventually reach the limit of the `PATH` length, a separate environment variable can be set and checked,
+for example, as follows.
+This only makes sense if the shell is persistent and does not close after each run.
+
+```
+if [ -z "${ABC_SETUP}" ]; then
+	# The setup has not been completed so update the PATH
+	export PATH="/some/folder:${PATH}"
+	# Set the variable to check next time
+	export ABC_SETUP="YES"
+fi
+```
+
+### `PATH` Lookup Optimization using `hash` ###
+
+Parsing the `PATH` environment variable and searching folders each time a command
+is entered on a command line requires computer resources and takes processing time.
+Consequently, Linux uses a hash table to track programs and absolute path.
+The [`hash` command](http://man7.org/linux/man-pages/man1/hash.1p.html)
+is used to manage this hash table and can be run
+with no options to list commands in the hash table, for example:
+
+```
+$ hash
+hits    command
+  15    /mingw64/bin/git
+   1    /c/WINDOWS/py
+  20    /usr/bin/vi
+  13    /usr/bin/ls
+```
+
+The following is from the `bash` documentation:
+
+```
+If  the  name  is neither a shell function nor a builtin, and contains no slashes,
+bash searches each element of the PATH for a directory containing an executable file by that name.
+Bash uses a hash table to remember the full pathnames of executable files (see hash under SHELL BUILTIN COMMANDS below).
+A full search of the directories in PATH is performed only if the command is not found in the hash table.  If the search is  unsuccessful,
+the  shell  searches for a defined shell function named command_not_found_handle.
+If that function exists, it is invoked with the original command and the original command's arguments as its arguments,
+and the function's exit status becomes the exit status of the shell.
+If that function is not defined, the shell prints an error message and returns an exit status of 127.
+```
+
+If a new version of a program is installed resulting in different location in the `PATH`
+it may be necessary to clear the hash so that the new location is used:
+
+```
+$ hash -r
+```
 
 ## File Paths ##
 

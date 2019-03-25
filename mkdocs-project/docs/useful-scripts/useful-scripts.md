@@ -304,6 +304,13 @@ parseCommandLine() {
 				;;
 		esac
 	done
+	# Get a list of all command line options that do not correspond to dash options.
+	# - These are "non-option" arguments.
+	# - For example, one or more file or folder names that need to be processed.
+	# - If multiple values, they will be delimited by spaces.
+	# - Command line * will result in expansion to matching files and folders.
+	shift $((OPTIND-1))
+	additionalOpts=$*
 }
 ```
 
@@ -313,9 +320,9 @@ This function needs to be called by passing the original command line arguments:
 parseCommandLine "$@"
 ```
 
-[See the full working example that can be run on a Linux command line](resources/parse-command-line-getopts.txt)
+[See the full working example that can be run on a Linux command line](resources/parse-command-line-builtin-getopts.txt)
 (The link will display text file but can save as `.sh` or no extension to run on a computer.
-If necessary, run with `sh parse-command-line-getopts.txt`).
+If necessary, run with `sh parse-command-line-builtin-getopts.txt`).
 
 ### Parsing command line options with `getopt` command ###
 
@@ -442,6 +449,13 @@ parseCommandLine() {
 				;;
 		esac
 	done
+	# Get a list of all command line options that do not correspond to dash options.
+	# - These are "non-option" arguments.
+	# - For example, one or more file or folder names that need to be processed.
+	# - If multiple values, they will be delimited by spaces.
+	# - Command line * will result in expansion to matching files and folders.
+	shift $((OPTIND-1))
+	additionalOpts=$*
 }
 ```
 
@@ -451,6 +465,6 @@ This function needs to be called by passing the original command line arguments:
 parseCommandLine "$@"
 ```
 
-[See the full working example that can be run on a Linux command line](resources/parse-command-line-getopt.txt)
+[See the full working example that can be run on a Linux command line](resources/parse-command-line-getopt-command.txt)
 (The link will display text file but can save as `.sh` or no extension to run on a computer.
-If necessary, run with `sh parse-command-line-getopt.txt`).
+If necessary, run with `sh parse-command-line-getopt-command.txt`).
