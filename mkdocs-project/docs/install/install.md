@@ -39,9 +39,13 @@ The Bourne shell (`sh` program) is distributed with most Linux systems and provi
 intended for automated tasks.
 The `bash` shell is also distributed with most Linux systems and is intended for login 
 shells, meaning those that provide a command prompt that users interact with.
-The `bash` shell is slower to start up and run than `sh` and therefore `sh` is preferred when
-performance is a consideration.  The `bash` shell provides useful command line features such as command completion.
-See:
+The `bash` shell is slower to start up and run than `sh` and therefore `sh` is
+preferred when performance is a major consideration,
+and comparison of run times can be compared to see if this is an issue.
+The `bash` shell provides useful command line features such as command completion that are used
+in interactive environments.
+**A general guideline is:  use the power and features of `bash` unless there are concerns about performance
+or portability.**  See:
 
 * [`sh` man page](http://man7.org/linux/man-pages/man1/sh.1p.html)
 * [`bash` man page](http://man7.org/linux/man-pages/man1/bash.1.html)
@@ -98,7 +102,7 @@ Selecting a Linux Shell
 
 | **Shell** | **Reasons to Use** | **Reasons to Not Use** |
 |-----------|-------------------|-----------------------|
-| `bash`    | <ul><li>Used for interactive sessions.</li><li>Provides useful features in addition to `sh` features.</li></ul> | <ul><li>Slower, takes more resources than `sh`, unless they are equivalent, in which case `sh` and `bash` take the same resources.</li></ul>|
+| `bash`    | <ul><li>Used for interactive sessions.</li><li>Provides useful features in addition to `sh` features, with documented examples.</li><li>Arrays.</li><li>`PIPESTATUS` for getting status of command in a sequence of piped commands.</li></ul> | <ul><li>Slower, takes more resources than `sh`, unless they are the same underlying command, in which case `sh` and `bash` take the same resources.</li></ul>|
 | `sh`      | <ul><li>Runs fast, for cases where processes are repeated and need to complete quickly.</li></ul>| <ul><li>Does not offer some features that `bash` has.</li></ul>|
 
 ## ![Linux](../images/linux-32.png)Installing a Shell on Linux ##
