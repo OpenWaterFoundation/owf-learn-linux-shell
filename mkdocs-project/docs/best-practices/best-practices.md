@@ -5,6 +5,7 @@ This page lists best practices, based on industry standards and first-hand exper
 * [Use simple shell scripts to memorialize tasks](#use-simple-shell-scripts-to-memorialize-tasks)
 * [Use version control](#use-version-control)
 * [Indicate the shell to run in the first line of shell scripts](#indicate-the-shell-to-run-in-the-first-line-of-shell-scripts)
+* [Write code that is understandable](#write-code-that-is-understandable)
 * [Check whether the script is running in the correct folder](#check-whether-the-script-is-running-in-the-correct-folder)
 * [Echo useful troubleshooting information](#echo-useful-troubleshooting-information)
 * [Consider options for logging](#consider-options-for-logging)
@@ -37,6 +38,9 @@ Therefore, use Git and a cloud-hosted version control system like GitHub or Bitb
 This also provides information about the author so that questions and bugs can be dealt with,
 for example via the repository issues page.
 
+If a true version control system is not used, the script can also be saved in a knowledge base or other
+information platform.
+
 ## Indicate the shell to run in the first line of shell scripts ##
 
 A shell script (actually any script) can be written in various languages and language standards.
@@ -49,6 +53,35 @@ Therefore, always specify the shell to run, for example:
 #
 # The above indicates that the Bourne shell `sh` command shell will be used to run the script.
 ```
+
+## Write code that is understandable ##
+
+It is common that code is rewritten simply because the original author's work is not understandable.
+This results in extra cost, potentially bugs, and potentially loss in functionality if the original
+code was not understood.
+The urge to rewrite code may be because of a lack of documentation, confusing logic, bad programming style,
+use of obscure or advanced language syntax without explanation, or other reasons.
+
+Documenting code at the time it is being written is the best time to document code.
+If updating code, read the code comments again and if they do not make sense, clarify the comments.
+A simple rule is to ask "will the next person working on this code understand it?"
+
+The following are some basic guidelines to making code understandable:
+
+* Add full grammar comments to code.  Don't force people to assume what you mean.
+Use proper grammar.  Sloppy comments and incomplete thoughts can indicate sloppy code.
+* Explain complex syntax.  Don't assume that the next programmer will have a PhD in shell scripting.
+Yes, every answer can be found on the web, but the web also contains many misleading and out of date examples.
+* Use variable and function names that are verbose enough to provide context.
+Code should read like a clear process.  Using appropriate names will also reduce
+the need for code comments.
+* Be consistent in names and style.  If editing someone else's code, try to be consistent
+with the original style if possible.
+* Use double or single quotes around strings, as appropriate, to indicate strings.
+* Use appropriate indentation consistently.  Tabs are OK and if used should not be mixed with spaces.
+Spaces if used should be in groups of 2 or 4.  Do not assume that the next person to edit
+the code will use the same convention in their editor, and make it obvious what is being used
+by being consistent.
 
 ## Check whether the script is running in the correct folder ##
 
@@ -82,6 +115,20 @@ if [ ! ${dirname} = "build-util" ]
 fi
 ```
 
+A more robust solution is to allow the script to be run from any folder, including finding in the `PATH`
+or specifying the path to the script manually.
+In this case the following syntax can be used to determine the location of the script,
+and other folders and files can be located relative to that location,
+assuming there is a standard.
+
+```sh
+# Get the location where this script is located since it may have been run from any folder
+scriptFolder=`cd $(dirname "$0") && pwd`
+# Also determine the script name, for example for usage and version.
+# - this is useful to prevent issues if the script name has been changed by renaming the file
+scriptName=$(basename $scriptFolder)
+```
+
 ## Echo useful troubleshooting information ##
 
 Shell scripts can be difficult to troubleshoot, especially if the script coding is not clear
@@ -96,7 +143,7 @@ If the script is more advanced, such output could be printed only when a command
 ## Consider options for logging ##
 
 Logging for shell scripts can be implemented in various ways.
-The standard for Linux is often to output to the stdout stream (for example `echo ...`).
+The standard for Linux is often to output to the `stdout` stream (for example `echo ...`).
 The script output can then be redirected into a file or piped to another program for further processing.
 However, diagnostic or progress messages that are separate from analytical output generally
 need to be separated from the general output.
@@ -109,6 +156,38 @@ A best practice is to implement options for logging in a way that will benefit u
 and then provide documentation to explain options.
 This will help users, especially those who may not fully understand how to do logging with
 redirection.
+
+The following is a basic example of implementing logging:
+
+```sh
+#!/bin/sh
+
+# example-logging
+
+# This example shows basic logging approach
+
+# Define the logfile
+# - in this case it is a temporary file but a name and location
+#   specific to the script purpose would normally be used
+logFile="$(mktemp).log"
+scriptName="myscript"
+
+# Write one record to the logfile indicating the time and program
+# - use tee command to show output to terminal and logfile if appropriate
+# - write standard output and error to the file
+now=$(date --iso-8601=seconds)
+echo "[${now}] Logfile for $scriptName:  $logFile" 2>&1 | tee $logFile
+
+# Write subsequent message by appending
+echo "Another log message" 2>&1 | tee --append $logFile
+```
+
+The script output is:
+
+```txt
+[2019-04-07T01:50:12-06:00] Logfile for myscript:  /tmp/tmp.S25lMrx7nN.log
+Another log message
+```
 
 ## Create documentation ##
 
@@ -134,7 +213,8 @@ Also, including links is a way to give credit to the person that helped solve a 
 
 ## Learn how to use shell features ##
 
-There is always a brute force "quick and dirty" way to do things.
+There is always a brute force "quick and dirty" way to do things,
+such as by copying and pasting code from a web search.
 However, there is a balance between the technical debt of quick and dirty solutions,
 and more elegant solutions that take more time to learn, but are more robust and maintainable in the long run.
 In particular, quick and dirty solutions that negatively impact the user experience
@@ -142,6 +222,8 @@ and resources spent by other developers should be avoided.
 Shell programmers should take the time to learn shell programming concepts and features such
 as command line parsing, functions, log files, etc. so that they can improve shell script quality
 and functionality.
+This documentation is an attempt to provide easily understood examples that go beyond
+the often terse and trivial examples on the web.
  
 ## Use functions to create reusable blocks of code ##
 
