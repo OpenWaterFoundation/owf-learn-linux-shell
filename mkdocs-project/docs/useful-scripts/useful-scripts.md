@@ -5,6 +5,7 @@ Most of these examples are for `sh`.
 However, the examples shown should also work for `bash` and other shells in most cases
 (if not, equivalent syntax can be determined).
 
+* [Check user running script](#check-user-running-script)
 * [Command to do nothing](#command-to-do-nothing)
 * [Control echo of script commands as script runs](#control-echo-of-script-commands-as-script-runs)
 * [Determine the folder where a script exists](#determine-the-folder-where-a-script-exists)
@@ -16,6 +17,47 @@ However, the examples shown should also work for `bash` and other shells in most
 	+ [Parsing command line options with `getopt` command](#parsing-command-line-options-with-getopt-command)
 
 -----------------
+
+## Check user running script ##
+
+It is sometimes necessary to check which user is running a script.
+For example, check whether the user is "superuser" or not.
+The following function function uses the `whoami` Linux command to determine whether the user
+is running as a superuser and if not, prints a warning and exits.
+In most cases the script would be run with `sudo scriptname`.
+
+```sh
+#!/bin/sh
+
+# Get the location where this script is located since it may have been run from any folder
+scriptFolder=`cd $(dirname "$0") && pwd`
+# Script name is used in some output, use the actual script in case file was renamed
+scriptNameFromCommandLine=$(basename $0)
+
+# Call the function to make sure running as superuser
+checkSudo $scriptNameFromCommandLine
+
+# Make sure that the script is being run as as root (or sudo)
+# - pass the script name (file only) as the first function argument
+# - Running 'sudo whomami' shows "root"
+checkSudo() {
+    local user scriptName
+    scriptName = $1
+    user=`whoami`
+    if [ "$user" != "root" ]; then
+        echo ""
+        echo "You are not running as root."
+        echo "Run with:          sudo $scriptName"
+        echo "or, if necessary:  sudo ./$scriptName"
+        echo ""
+        exit 1
+    else
+        echo ""
+        echo "You are running as root or sudo.  There should be no permissions issues."
+        echo ""
+    fi
+}
+```
 
 ## Command to do nothing ##
 
@@ -99,6 +141,9 @@ The following determines the absolute path to the script being run:
 ```
 # Get the location where this script is located since it may have been run from any folder
 scriptFolder=`cd $(dirname "$0") && pwd`
+# Also determine the script name, for example for usage and version.
+# - this is useful to prevent issues if the script name has been changed by renaming the file
+scriptName=$(basename $scriptFolder)
 ```
 The `$0` command argument contains the script name, which can be a file or path.
 The above logic therefore changes to the directory in which the script resides.
