@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Example of exit status.
+# example-built-in-exit-status - example of exit status.
 # The following will always fail because the file does not exist.
 
 fileToRemove="/tmp/some-file-that-does-not-exist"

@@ -15,6 +15,7 @@ However, the examples shown should also work for `bash` and other shells in most
 * [Parsing command line options](#parsing-command-line-options)
 	+ [Parsing command line options with built-in getopts](#parsing-command-line-options-with-built-in-getopts)
 	+ [Parsing command line options with `getopt` command](#parsing-command-line-options-with-getopt-command)
+* [Set Terminal Title](#set-terminal-title)
 
 -----------------
 
@@ -513,3 +514,39 @@ parseCommandLine "$@"
 [See the full working example that can be run on a Linux command line](resources/parse-command-line-getopt-command.txt)
 (The link will display text file but can save as `.sh` or no extension to run on a computer.
 If necessary, run with `sh parse-command-line-getopt-command.txt`).
+
+## Set Terminal Title ##
+
+It can be helpful to set the title of a terminal window, for example to indicate that the terminal
+is configured for an environment.
+For example, a script may be run to to configure the `PATH` and other environment variables.
+To set the title of the terminal, use the `echo` command with extended characters.
+For example, the following script illustrates a function that sets the terminal title:
+
+```
+#!/bin/bash
+
+# example-termtitle
+
+# Function to set the title of the terminal for the configured environment
+# See:  https://askubuntu.com/questions/22413/how-to-change-gnome-terminal-title
+setTerminalTitle () {
+    local title
+    title=$1
+    echo -ne "\033]0;${1}\007"
+}
+
+# The function can also added to the $HOME/.bashrc file and then add an alias:
+# alias termtitle=setTerminalTitle
+# 
+# Then run this script on the command line with:
+#   example-termtitle title
+#   example-termtitle "title title with spaces"
+
+# Entry point into script
+
+if [ ! -z "$1" ]; then
+    # If an argument was provided, use it to set the terminal title
+    setTerminalTitle "$1"
+fi
+```
