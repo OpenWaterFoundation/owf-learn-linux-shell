@@ -21,8 +21,8 @@ scripts syntax:
 
 * [Arrays](#arrays)
 * [Functions](#functions)
+* [Function and Command Return Status for Error Handling](#function-and-command-return-status-for-error-handling)
 * ["Here Document" to Include Text in Script](#here-document-to-include-text-in-script)
-* [Return Status for Error Handling](#return-status-for-error-handling)
 * [Scope of Variables](#scope-of-variables)
 
 --------------------
@@ -252,25 +252,28 @@ Output from the above script is:
 SELECT * from table where val1=something and val2='somethingElse'
 ```
 
-## Return Status for Error Handling ##
+## Function and Command Return Status for Error Handling ##
 
-Any code that is comprised of calls to external programs or built-in shell commands
-should implement some type of error handling.
-Shell script functions, built-in commands, and Linux commands (programs) typically use
-an integer return status to indicate success or failure.
-Programming languages such as C, Java, Python, etc. typically use a `main()` program
-function that has an `exit()` call to exit the program and this is the value
-that is handed off to the shell script as the program exit status.
-Shell scripts can also use the built-in `exit` to indicate the exit status of the script.
+Any code that is comprised of calls to external programs (commands), built-in shell commands,
+and script functions should implement some type of error handling.
+An integer return status is used to indicate success or failure:
+
+* Programming languages such as C, Java, Python, etc. typically use a `main()` program
+function that calls `exit(0)` (or other integer value) to exit the program and pass the integer
+value to the shell as the program exit status.
+* Shell scripts can call `exit 0` (or other integer value) to indicate the exit status of the script.
+* Shell script functions can call  `return 0` (or other integer value) to indicate the return value of the script.
 
 It is customary that a value of zero (`0`) is used to indicate success,
 and a non-zero value is used to indicate failure,
 typically with documentation available to understand the return status.
 
+The following sections describe ways to check exit status.
+
 ### Built-in `$?` Exit Status Variable ###
 
 Linux shells provide the `$?` variable to check the return status of the
-command or program that was just called.
+built-in command, program, or function that was just called.
 The value of this variable must be assigned to another variable to protect the value because
 it will be reset as soon as another command or function is called.
 For example:
@@ -278,7 +281,7 @@ For example:
 ```sh
 #!/bin/sh
 
-# Example of exit status.
+# example-built-in-exit-status - example of exit status.
 # The following will always fail because the file does not exist.
 
 fileToRemove="/tmp/some-file-that-does-not-exist"
@@ -289,6 +292,58 @@ if [ $? -eq 0 ]; then
 else
     echo "File does not exist:  $fileToRemove"
 fi
+```
+
+The output from the script is:
+
+```
+File does not exist:  /tmp/some-file-that-does-not-exist
+```
+
+### Checking Return Status Directly ###
+
+The previous section describes how to check the return status by using the `$?` variable.
+However, the return value can be also be checked directly.
+Whereas programming languages typically treat a zero value as "false" and a non-zero
+value as "true", shell script `if` statements consider a return value of 0 to be success
+and all other values to be failure.  See the following example:
+
+```sh
+#!/bin/sh
+
+# example-if-return-status-check - example of checking return status
+
+# Function to return the value passed as first argument
+testFunction() {
+    local returnValue
+    returnValue=$1
+    return $returnValue
+}
+
+# Main entry point
+
+# Call the test function
+# - could also call a program or built-in command
+# - pass the value to return from the function
+if testFunction 0; then
+    echo "Function was successful (return value 0)"
+fi
+if testFunction 1; then
+    # This will not called because 1 is considered false
+    echo "Function was not successful (return value 1)"
+fi
+# Use ! to negate the logical check
+# - therefore a failure causes the if to evaluate as true
+if ! testFunction 1; then
+    echo "Function was not successful (return value 1)"
+fi
+```
+
+Output from the script is:
+
+```
+Function was successful (return value 0)
+Function was not successful (return value 1)
 ```
 
 ### Bash `PIPESTATUS` for Piped Exit Status ###
