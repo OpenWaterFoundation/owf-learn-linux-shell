@@ -20,6 +20,7 @@ mkdocs-project/       Typical MkDocs project for this documentation.
   mkdocs.yml          MkDocs configuration file for website.
   docs/               Folder containing source Markdown and other files for website.
   site/               Folder created by MkDocs containing the static website - ignored using .gitignore.
+z-local-notes/        Use for local developer notes not committed to the repository.
 
 ```
 
