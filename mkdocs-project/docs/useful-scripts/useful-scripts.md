@@ -12,6 +12,7 @@ However, the examples shown should also work for `bash` and other shells in most
 * [Determine the operating system](#determine-the-operating-system)
 * [Echo colored text to console](#echo-colored-text-to-console)
 * [Ensure that script runs on Linux and Windows](#ensure-that-script-runs-on-linux-and-windows)
+* [Log Messages and Program Output](#log-messages-and-program-output)
 * [Parsing command line options](#parsing-command-line-options)
 	+ [Parsing command line options with built-in getopts](#parsing-command-line-options-with-built-in-getopts)
 	+ [Parsing command line options with `getopt` command](#parsing-command-line-options-with-getopt-command)
@@ -31,7 +32,7 @@ In most cases the script would be run with `sudo scriptname`.
 #!/bin/sh
 
 # Get the location where this script is located since it may have been run from any folder
-scriptFolder=`cd $(dirname "$0") && pwd`
+scriptFolder=$(cd $(dirname "$0") && pwd)
 # Script name is used in some output, use the actual script in case file was renamed
 scriptNameFromCommandLine=$(basename $0)
 
@@ -141,7 +142,7 @@ The following determines the absolute path to the script being run:
 
 ```
 # Get the location where this script is located since it may have been run from any folder
-scriptFolder=`cd $(dirname "$0") && pwd`
+scriptFolder=$(cd $(dirname "$0") && pwd)
 # Also determine the script name, for example for usage and version.
 # - this is useful to prevent issues if the script name has been changed by renaming the file
 scriptName=$(basename $scriptFolder)
@@ -274,6 +275,181 @@ The script is then portable between Linux and Windows shell environments.
 Examples:
 
 * [Open Water Foundation git-check.sh](https://github.com/OpenWaterFoundation/owf-util-git/blob/master/build-util/git-util/git-check.sh)
+
+## Log Messages and Program Output ##
+
+It is often useful to print messages to the terminal and/or to a log file,
+similar to logging frameworks in programming languages,
+Logging is helpful for debugging and to to provide the user with feedback as a script runs.
+
+The functions below can be inserted into a script and can be called similar to the following:
+
+```
+scriptFolder=$(cd $(dirname "$0") && pwd)
+scriptName=$(basename $scriptFolder)
+# Start a log file that will be used by the logging functions
+logFileStart ${scriptName} "${scriptFolder)/${scriptName}.log"
+
+# The following logs the message string passed to the function.
+# - use a space for empty lines because otherwise the logging function
+#   will hang waiting for input
+logInfo " "
+logInfo "Starting to do some work."
+
+# The following will log each `stdout` and `stderr` line piped to the function.
+someOtherProgram 2>&1 | logInfo
+```
+
+Output is similar to:
+
+```
+[DEBUG] some debug message
+[INFO] some informational message
+[WARNING] some warning message
+[ERROR] some error message
+```
+
+Functions to insert (see also [logging-functions.txt](resources/logging-functions.txt)):
+
+```sh
+# Echo to stderr
+echoStderr() {
+  # - if necessary, quote the string to be printed
+  # - redirect stdout from echo to stderr
+  echo "$@" 1>&2
+  # Or, use an alternate echo as discussed in "Echo colored text to console" example
+  # ${echo2} "$@" 1>&2
+}
+
+# Print a DEBUG message
+# - prints to stderr and optionally appends to log file if ${logFile} is defined globally
+#   - see logFileStart() to start a log file
+# - call with parameters or pipe stdout and stderr to this function: 2>&1 | logDebug
+# - print empty lines with a space " " to avoid hanging the program waiting on stdin input
+logDebug() {
+  if [ -n "${1}" ]; then
+    if [ -n "${logFile}" ]; then
+      # Are using a log file
+      echoStderr "[DEBUG] $@" 2>&1 | tee --append $logFile
+    else
+      # Are NOT using a log file
+      echoStderr "[DEBUG] $@"
+    fi
+  else
+    while read inputLine; do
+      if [ -n "${logFile}" ]; then
+        # Are using a log file
+        echoStderr "[DEBUG] ${inputLine}" 2>&1 | tee --append $logFile
+      else
+        # Are NOT using a log file
+        echoStderr "[DEBUG] ${inputLine}"
+      fi
+    done
+  fi
+}
+
+# Print an ERROR message
+# - prints to stderr and optionally appends to log file if ${logFile} is defined globally
+#   - see logFileStart() to start a log file
+# - call with parameters or pipe stdout and stderr to this function: 2>&1 | logError
+# - print empty lines with a space " " to avoid hanging the program waiting on stdin input
+logError() {
+  if [ -n "${1}" ]; then
+    if [ -n "${logFile}" ]; then
+      # Are using a log file
+      echoStderr "[ERROR] $@" 2>&1 | tee --append $logFile
+    else
+      # Are NOT using a log file
+      echoStderr "[ERROR] $@"
+    fi
+  else
+    while read inputLine; do
+      if [ -n "${logFile}" ]; then
+        # Are using a log file
+        echoStderr "[ERROR] ${inputLine}" 2>&1 | tee --append $logFile
+      else
+        # Are NOT using a log file
+        echoStderr "[ERROR] ${inputLine}"
+      fi
+    done
+  fi
+}
+
+# Start a new logfile
+# - name of program that is being run is the first argument
+# - path to the logfile is the second argument
+# - echo a line to the log file to (re)start
+# - subsequent writes to the file using log*() functions will append
+# - the global variable ${logFile} will be set for use by log*() functions
+logFileStart() {
+  local newLogFile now programBeingLogged
+  programBeingLogged=$1
+  # Set the global logfile, in case it was not saved
+  if [ -n "${2}" ]; then
+    logFile=${2}
+  else
+    # Set the logFile to stderr if not specified, so it is handled somehow
+    logFile=/dev/stderr
+  fi
+  now=$(date '+%Y-%m-%d %H:%M:%S')
+  # Can't use logInfo because it only appends and want to restart the file
+  echo "Log file for ${programBeingLogged} started at ${now}" > ${logFile}
+}
+
+# Print an INFO message
+# - prints to stderr and optionally appends to log file if ${logFile} is defined globally
+#   - see logFileStart() to start a log file
+# - call with parameters or pipe stdout and stderr to this function: 2>&1 | logInfo
+# - print empty lines with a space " " to avoid hanging the program waiting on stdin input
+logInfo() {
+  if [ -n "${1}" ]; then
+    if [ -n "${logFile}" ]; then
+      # Are using a log file
+      echoStderr "[INFO] $@" 2>&1 | tee --append $logFile
+    else
+      # Are NOT using a log file
+      echoStderr "[INFO] $@"
+    fi
+  else
+    while read inputLine; do
+      if [ -n "${logFile}" ]; then
+        # Are using a log file
+        echoStderr "[INFO] ${inputLine}" 2>&1 | tee --append $logFile
+      else
+        # Are NOT using a log file
+        echoStderr "[INFO] ${inputLine}"
+      fi
+    done
+  fi
+}
+
+# Print an WARNING message
+# - prints to stderr and optionally appends to log file if ${logFile} is defined globally
+#   - see logFileStart() to start a log file
+# - call with parameters or pipe stdout and stderr to this function: 2>&1 | logWarning
+# - print empty lines with a space " " to avoid hanging the program waiting on stdin input
+logWarning() {
+  if [ -n "${1}" ]; then
+    if [ -n "${logFile}" ]; then
+      # Are using a log file
+      echoStderr "[WARNING] $@" 2>&1 | tee --append $logFile
+    else
+      # Are NOT using a log file
+      echoStderr "[WARNING] $@"
+    fi
+  else
+    while read inputLine; do
+      if [ -n "${logFile}" ]; then
+        # Are using a log file
+        echoStderr "[WARNING] ${inputLine}" 2>&1 | tee --append $logFile
+      else
+        # Are NOT using a log file
+        echoStderr "[WARNING] ${inputLine}"
+      fi
+    done
+  fi
+}
+```
 
 ## Parsing command line options ##
 

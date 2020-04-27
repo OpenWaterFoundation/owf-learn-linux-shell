@@ -1,0 +1,137 @@
+# Echo to stderr
+echoStderr() {
+  # - if necessary, quote the string to be printed
+  # - redirect stdout from echo to stderr
+  echo "$@" 1>&2
+  # Or, use alternative echo, such as version that can change colors of text
+  #${echo2} "$@" 1>&2
+}
+
+# Print a DEBUG message
+# - prints to stderr and optionally appends to log file if ${logFile} is defined globally
+#   - see logFileStart() to start a log file
+# - call with parameters or pipe stdout and stderr to this function: 2>&1 | logDebug
+# - print empty lines with a space " " to avoid hanging the program waiting on stdin input
+logDebug() {
+  if [ -n "${1}" ]; then
+    if [ -n "${logFile}" ]; then
+      # Are using a log file
+      echoStderr "[DEBUG] $@" 2>&1 | tee --append $logFile
+    else
+      # Are NOT using a log file
+      echoStderr "[DEBUG] $@"
+    fi
+  else
+    while read inputLine; do
+      if [ -n "${logFile}" ]; then
+        # Are using a log file
+        echoStderr "[DEBUG] ${inputLine}" 2>&1 | tee --append $logFile
+      else
+        # Are NOT using a log file
+        echoStderr "[DEBUG] ${inputLine}"
+      fi
+    done
+  fi
+}
+
+# Print an ERROR message
+# - prints to stderr and optionally appends to log file if ${logFile} is defined globally
+#   - see logFileStart() to start a log file
+# - call with parameters or pipe stdout and stderr to this function: 2>&1 | logError
+# - print empty lines with a space " " to avoid hanging the program waiting on stdin input
+logError() {
+  if [ -n "${1}" ]; then
+    if [ -n "${logFile}" ]; then
+      # Are using a log file
+      echoStderr "[ERROR] $@" 2>&1 | tee --append $logFile
+    else
+      # Are NOT using a log file
+      echoStderr "[ERROR] $@"
+    fi
+  else
+    while read inputLine; do
+      if [ -n "${logFile}" ]; then
+        # Are using a log file
+        echoStderr "[ERROR] ${inputLine}" 2>&1 | tee --append $logFile
+      else
+        # Are NOT using a log file
+        echoStderr "[ERROR] ${inputLine}"
+      fi
+    done
+  fi
+}
+
+# Start a new logfile
+# - name of program that is being run is the first argument
+# - path to the logfile is the second argument
+# - echo a line to the log file to (re)start
+# - subsequent writes to the file using log*() functions will append
+# - the global variable ${logFile} will be set for use by log*() functions
+logFileStart() {
+  local newLogFile now programBeingLogged
+  programBeingLogged=$1
+  # Set the global logfile, in case it was not saved
+  if [ -n "${2}" ]; then
+    logFile=${2}
+  else
+    # Set the logFile to stderr if not specified, so it is handled somehow
+    logFile=/dev/stderr
+  fi
+  now=$(date '+%Y-%m-%d %H:%M:%S')
+  # Can't use logInfo because it only appends and want to restart the file
+  echo "Log file for ${programBeingLogged} started at ${now}" > ${logFile}
+}
+
+# Print an INFO message
+# - prints to stderr and optionally appends to log file if ${logFile} is defined globally
+#   - see logFileStart() to start a log file
+# - call with parameters or pipe stdout and stderr to this function: 2>&1 | logInfo
+# - print empty lines with a space " " to avoid hanging the program waiting on stdin input
+logInfo() {
+  if [ -n "${1}" ]; then
+    if [ -n "${logFile}" ]; then
+      # Are using a log file
+      echoStderr "[INFO] $@" 2>&1 | tee --append $logFile
+    else
+      # Are NOT using a log file
+      echoStderr "[INFO] $@"
+    fi
+  else
+    while read inputLine; do
+      if [ -n "${logFile}" ]; then
+        # Are using a log file
+        echoStderr "[INFO] ${inputLine}" 2>&1 | tee --append $logFile
+      else
+        # Are NOT using a log file
+        echoStderr "[INFO] ${inputLine}"
+      fi
+    done
+  fi
+}
+
+# Print an WARNING message
+# - prints to stderr and optionally appends to log file if ${logFile} is defined globally
+#   - see logFileStart() to start a log file
+# - call with parameters or pipe stdout and stderr to this function: 2>&1 | logWarning
+# - print empty lines with a space " " to avoid hanging the program waiting on stdin input
+logWarning() {
+  if [ -n "${1}" ]; then
+    if [ -n "${logFile}" ]; then
+      # Are using a log file
+      echoStderr "[WARNING] $@" 2>&1 | tee --append $logFile
+    else
+      # Are NOT using a log file
+      echoStderr "[WARNING] $@"
+    fi
+  else
+    while read inputLine; do
+      if [ -n "${logFile}" ]; then
+        # Are using a log file
+        echoStderr "[WARNING] ${inputLine}" 2>&1 | tee --append $logFile
+      else
+        # Are NOT using a log file
+        echoStderr "[WARNING] ${inputLine}"
+      fi
+    done
+  fi
+}
