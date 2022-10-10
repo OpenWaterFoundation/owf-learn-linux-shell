@@ -24,11 +24,11 @@ copyright:  Copyright 2017-2019, Open Water Foundation
 extra_css:
 - 'css/extra-material-theme.css'
 # ------------------------------------------------
-# # Google Analytics
 # - see:  https://squidfunk.github.io/mkdocs-material/getting-started/#google-analytics
-google_analytics:
- - 'UA-135465513-1'
- - auto
+extra:
+  analytics:
+    provider: google
+    property: 'G-KJFMBY739T'
 # ------------------------------------------------
 # Don't include the URL because don't really want direct editing on content and editor icons are irritating
 # repo_url:  https://github.com/OpenWaterFoundation/owf-learn-linux-shell

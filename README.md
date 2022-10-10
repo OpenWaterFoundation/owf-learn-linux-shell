@@ -1,10 +1,10 @@
 # owf-learn-linux-shell #
 
-This repository contains the [Open Water Foundation (OWF)](http://openwaterfoundation.org/) Linux shell learning resources,
+This repository contains the [Open Water Foundation (OWF)](https://openwaterfoundation.org/) Linux shell learning resources,
 which provide guidance for creating and using Linux shell scripts.
 The documentation is written for the layperson in order to encourage use of Linux shell scripts.
 
-See the deployed [OWF / Learn Linux Shell](http://learn.openwaterfoundation.org/owf-learn-linux-shell/) documentation.
+See the deployed [OWF / Learn Linux Shell](https://learn.openwaterfoundation.org/owf-learn-linux-shell/) documentation.
 
 ## Repository Contents ##
 
@@ -27,7 +27,7 @@ z-local-notes/        Use for local developer notes not committed to the reposit
 ## Development Environment ##
 
 The development environment for contributing to this project requires installation of Python, MkDocs, and Material MkDocs theme.
-Python 2 has been used for development.  See the [`OWF Learn MkDocs`](http://learn.openwaterfoundation.org/owf-learn-mkdocs/)
+Python 2 has been used for development.  See the [`OWF Learn MkDocs`](https://learn.openwaterfoundation.org/owf-learn-mkdocs/)
 documentation for information about installing these tools.
 
 In order to run the Linux shell examples, one of the following must be available:
@@ -79,7 +79,7 @@ provide in-line table of contents on pages, where appropriate, to facilitate rev
 
 ## Maintainers ##
 
-This repository is maintained by the [Open Water Foundation](http://openwaterfoundation.org/).
+This repository is maintained by the [Open Water Foundation](https://openwaterfoundation.org/).
 
 ## Contributors ##
 
