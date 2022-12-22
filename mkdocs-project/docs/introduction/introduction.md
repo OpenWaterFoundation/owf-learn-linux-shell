@@ -4,10 +4,10 @@ There is often a need to perform computational tasks without writing a program i
 "full" programming language (C, Python, Java, C#, etc.).
 Examples of tasks include:
 
-* Configuring a user's computer environment to run software
-* Performing an ad-hoc task such as searching or translating a data file
-* Repetitively running a task
-* Prototyping software before writing in another language
+*   Configuring a user's computer environment to run software
+*   Performing an ad-hoc task such as searching or translating a data file
+*   Repetitively running a task
+*   Prototyping software before writing in another language
 
 In today's computing environments, many people mainly use a web browser,
 a virtual desktop, or "apps" in which all interaction occurs through a mouse, finger on a screen, or other interactive action.
@@ -26,20 +26,20 @@ A ***shell*** program is a computer program that can be run and provides
 an open-ended interface to the computer's operating system to allow multiple other programs to be run from the shell interface or script.
 A shell program provides an interface to run computer programs though one of the following mechanisms:
 
-1. graphical user interface
-2. command line prompt
-3. shell script (really just an extension of the second case, where multiple commands are run from a shell script file within a shell environment)
+1.  graphical user interface
+2.  command line prompt
+3.  shell script (really just an extension of the second case, where multiple commands are run from a shell script file within a shell environment)
 
 In this documentation, the focus is on the Linux shell, although comparisons with Windows may be provided for context and perspective.
 See also the following comparison of command shells:
 
-* [Comparison of command shells (Wikipedia)](https://en.wikipedia.org/wiki/Comparison_of_command_shells)
+*   [Comparison of command shells (Wikipedia)](https://en.wikipedia.org/wiki/Comparison_of_command_shells)
 
 Command shells run:
 
-1. commands built into the command shell (such commands and features are referred to as "built-in")
-2. commands built into the operating system
-3. other programs installed on the computer/device
+1.  commands built into the command shell (such commands and features are referred to as "built-in")
+2.  commands built into the operating system
+3.  other programs installed on the computer/device
 
 Each of the above behave slightly differently due to the integration with the computing environment.
 Additionally, the shell provides shell language features including variables, comments, control statements like `if` and `while`,
@@ -152,15 +152,15 @@ Comments in shell scripts start with the `#` character, and can be anywhere on a
 
 Why would one use a Linux shell, in particular when working on a Windows computer?
 
-* Some software environments install a Linux shell as part of the software, for example:
-	+ Git for Windows, which is used for version control, installs the MinGW environment,
-	which includes a Bash shell (more on different Linux shells later).
-	+ The GNU Fortran environment on Windows also installs MinGW and Linux shell.
-* Linux shell programs provide more functionality that Windows batch files, especially for complex tasks
-(of course batch file experts might debate this).
-* Linux shell scripts are portable across many computers, including Linux, Mac, and Windows.
-* Learning Linux and shell scripting, especially in a profession that deals with data and programming,
-is a skill that will pay dividends in productivity and career advancement.
+*   Some software environments install a Linux shell as part of the software, for example:
+    +   Git for Windows, which is used for version control, installs the MinGW environment,
+        which includes a Bash shell (more on different Linux shells later).
+    +   The GNU Fortran environment on Windows also installs MinGW and Linux shell.
+*   Linux shell programs provide more functionality that Windows batch files, especially for complex tasks
+    (of course batch file experts might debate this).
+*   Linux shell scripts are portable across many computers, including Linux, Mac, and Windows.
+*   Learning Linux and shell scripting, especially in a profession that deals with data and programming,
+    is a skill that will pay dividends in productivity and career advancement.
 
 ## Next Steps
 

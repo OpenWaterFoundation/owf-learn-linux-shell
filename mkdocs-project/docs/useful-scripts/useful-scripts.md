@@ -5,18 +5,18 @@ Most of these examples are for `sh`.
 However, the examples shown should also work for `bash` and other shells in most cases
 (if not, equivalent syntax can be determined).
 
-* [Check user running script](#check-user-running-script)
-* [Command to do nothing](#command-to-do-nothing)
-* [Control echo of script commands as script runs](#control-echo-of-script-commands-as-script-runs)
-* [Determine the folder where a script exists](#determine-the-folder-where-a-script-exists)
-* [Determine the operating system](#determine-the-operating-system)
-* [Echo colored text to console](#echo-colored-text-to-console)
-* [Ensure that script runs on Linux and Windows](#ensure-that-script-runs-on-linux-and-windows)
-* [Log Messages and Program Output](#log-messages-and-program-output)
-* [Parsing command line options](#parsing-command-line-options)
-	+ [Parsing command line options with built-in getopts](#parsing-command-line-options-with-built-in-getopts)
-	+ [Parsing command line options with `getopt` command](#parsing-command-line-options-with-getopt-command)
-* [Set Terminal Title](#set-terminal-title)
+*   [Check user running script](#check-user-running-script)
+*   [Command to do nothing](#command-to-do-nothing)
+*   [Control echo of script commands as script runs](#control-echo-of-script-commands-as-script-runs)
+*   [Determine the folder where a script exists](#determine-the-folder-where-a-script-exists)
+*   [Determine the operating system](#determine-the-operating-system)
+*   [Echo colored text to console](#echo-colored-text-to-console)
+*   [Ensure that script runs on Linux and Windows](#ensure-that-script-runs-on-linux-and-windows)
+*   [Log Messages and Program Output](#log-messages-and-program-output)
+*   [Parsing command line options](#parsing-command-line-options)
+    +   [Parsing command line options with built-in getopts](#parsing-command-line-options-with-built-in-getopts)
+    +   [Parsing command line options with `getopt` command](#parsing-command-line-options-with-getopt-command)
+*   [Set Terminal Title](#set-terminal-title)
 
 -----------------
 
@@ -70,8 +70,8 @@ The following illustrates using the colon command to achieve this result:
 ```
 answer="no"
 if [ "$answer" = "no" ]; then
-	# don't do anything
-	:
+  # don't do anything
+  :
 fi
 ```
 
@@ -111,8 +111,7 @@ $ sh -x some-script
 
 It may also be useful to turn on echo/trace for specific lines in a script,
 for example to help the user understand what is being run.
-The following illustrates how to turn on the echo for one command and
-then turn it off:
+The following illustrates how to turn on the echo for one command and then turn it off:
 
 ```
 # Some script ...
@@ -155,7 +154,7 @@ This approach may not work if symbolic links are involved and additional informa
 
 Examples:
 
-* [Open Water Foundation git-check-util](https://github.com/OpenWaterFoundation/owf-util-git/blob/master/build-util/git-check-util.sh)
+*   [Open Water Foundation git-check-util](https://github.com/OpenWaterFoundation/owf-util-git/blob/master/build-util/git-check-util.sh)
 
 
 ## Determine the operating system
@@ -170,36 +169,36 @@ can be used in `if` statements to control logic:
 # - mainly care whether Cygwin
 checkOperatingSystem()
 {
-	operatingSystem="unknown"
-	os=`uname | tr [a-z] [A-Z]`
-	case "${os}" in
-		CYGWIN*)
-			operatingSystem="cygwin"
-			;;
-		LINUX*)
-			operatingSystem="linux"
-			;;
-		MINGW*)
-			operatingSystem="mingw"
-			;;
-	esac
-	echo "operatingSystem=$operatingSystem (used to check for Cygwin and filemode compatibility)"
+  operatingSystem="unknown"
+  os=`uname | tr [a-z] [A-Z]`
+  case "${os}" in
+    CYGWIN*)
+      operatingSystem="cygwin"
+      ;;
+    LINUX*)
+      operatingSystem="linux"
+      ;;
+    MINGW*)
+      operatingSystem="mingw"
+      ;;
+  esac
+  echo "operatingSystem=$operatingSystem (used to check for Cygwin and filemode compatibility)"
 }
 ```
 
 Examples:
 
-* [Open Water Foundation git-check](https://github.com/OpenWaterFoundation/owf-app-geoprocessor-python/blob/master/build-util/git-util/git-check.sh)
+*   [Open Water Foundation git-check](https://github.com/OpenWaterFoundation/owf-app-geoprocessor-python/blob/master/build-util/git-util/git-check.sh)
 
 ## Echo colored text to console
 
 It can be useful to print colored text to the console, for example to highlight warning or error messages.
 The `echo` command can be used to print special characters.  See:
 
-* [How to change RGB colors in Git Bash for windows](https://stackoverflow.com/questions/21243172/how-to-change-rgb-colors-in-git-bash-for-windows)
-* [Bash: Using Colors](http://webhome.csc.uvic.ca/~sae/seng265/fall04/tips/s265s047-tips/bash-using-colors.html)
-* [Unix escape sequences](https://en.wikipedia.org/wiki/ANSI_escape_code#Unix-like_systems)
-* [Yellow "33" in Linux can show as brown](https://unix.stackexchange.com/questions/192660/yellow-appears-as-brown-in-konsole)
+*   [How to change RGB colors in Git Bash for windows](https://stackoverflow.com/questions/21243172/how-to-change-rgb-colors-in-git-bash-for-windows)
+*   [Bash: Using Colors](http://webhome.csc.uvic.ca/~sae/seng265/fall04/tips/s265s047-tips/bash-using-colors.html)
+*   [Unix escape sequences](https://en.wikipedia.org/wiki/ANSI_escape_code#Unix-like_systems)
+*   [Yellow "33" in Linux can show as brown](https://unix.stackexchange.com/questions/192660/yellow-appears-as-brown-in-konsole)
 
 To print special characters requires using `echo -e`
 The built-in `echo` command found in the shell may not support the `-e` option,
@@ -212,12 +211,12 @@ Therefore, first determine which `echo` command to use:
 echo2='echo -e'
 testEcho=`echo -e test`
 if [ "${testEcho}" = '-e test' ]; then
-	# The -e option did not work as intended.
-	# -using the normal /bin/echo should work
-	# -printf is also an option
-	echo2='/bin/echo -e'
-	# The following does not seem to work
-	#echo2='printf'
+  # The -e option did not work as intended.
+  # -using the normal /bin/echo should work
+  # -printf is also an option
+  echo2='/bin/echo -e'
+  # The following does not seem to work
+  #echo2='printf'
 fi
 ```
 
@@ -242,7 +241,7 @@ ${echo2} "Number of up-to-date repositories: ${okColor}${upToDateRepoCount}${col
 
 Examples:
 
-* [Open Water Foundation git-check](https://github.com/OpenWaterFoundation/owf-app-geoprocessor-python/blob/master/build-util/git-util/git-check.sh)
+*   [Open Water Foundation git-check](https://github.com/OpenWaterFoundation/owf-app-geoprocessor-python/blob/master/build-util/git-util/git-check.sh)
 
 
 ## Ensure that script runs on Linux and Windows ##
@@ -274,7 +273,7 @@ The script is then portable between Linux and Windows shell environments.
 
 Examples:
 
-* [Open Water Foundation git-check.sh](https://github.com/OpenWaterFoundation/owf-util-git/blob/master/build-util/git-util/git-check.sh)
+*   [Open Water Foundation git-check.sh](https://github.com/OpenWaterFoundation/owf-util-git/blob/master/build-util/git-util/git-check.sh)
 
 ## Log Messages and Program Output ##
 
@@ -487,52 +486,52 @@ should result in the `:` case statement should be executed to handle the error.
 ```
 # Parse the command line and set variables to control logic
 parseCommandLine() {
-	# Special case that nothing was provided on the command line so print usage
-	# - include this if it is desired to print usage by default
-	if [ "$#" -eq 0 ]; then
-		printUsage
-		exit 0
-	fi
-	local OPTIND opt h i o v
-	optstring=":hi:o:v"
-	while getopts $optstring opt; do
-		#echo "Command line option is $opt"
-		case $opt in
-			h) # -h  Print usage
-				printUsage
-				exit 0
-				;;
-			i) # -i inputFile  Get the input file
-				inputFile=$OPTARG
-				;;
-			o) # -o outputFile  Get the output file
-				outputFile=$OPTARG
-				;;
-			v) # -v  Print the version
-				printVersion
-				exit 0
-				;;
-			\?) # Unknown single-character option
-				echo ""
-				echo "Invalid option:  -$OPTARG" >&2
-				printUsage
-				exit 1
-				;;
-			:) # Option is recognized but it is missing an argument
-				echo ""
-				echo "Option -$OPTARG requires an argument" >&2
-				printUsage
-				exit 1
-				;;
-		esac
-	done
-	# Get a list of all command line options that do not correspond to dash options.
-	# - These are "non-option" arguments.
-	# - For example, one or more file or folder names that need to be processed.
-	# - If multiple values, they will be delimited by spaces.
-	# - Command line * will result in expansion to matching files and folders.
-	shift $((OPTIND-1))
-	additionalOpts=$*
+  # Special case that nothing was provided on the command line so print usage
+  # - include this if it is desired to print usage by default
+  if [ "$#" -eq 0 ]; then
+    printUsage
+    exit 0
+  fi
+  local OPTIND opt h i o v
+  optstring=":hi:o:v"
+  while getopts $optstring opt; do
+    #echo "Command line option is $opt"
+    case $opt in
+      h) # -h  Print usage
+        printUsage
+        exit 0
+        ;;
+      i) # -i inputFile  Get the input file
+        inputFile=$OPTARG
+        ;;
+      o) # -o outputFile  Get the output file
+        outputFile=$OPTARG
+        ;;
+      v) # -v  Print the version
+        printVersion
+        exit 0
+        ;;
+      \?) # Unknown single-character option
+        echo ""
+        echo "Invalid option:  -$OPTARG" >&2
+        printUsage
+        exit 1
+        ;;
+      :) # Option is recognized but it is missing an argument
+        echo ""
+        echo "Option -$OPTARG requires an argument" >&2
+        printUsage
+        exit 1
+        ;;
+    esac
+  done
+  # Get a list of all command line options that do not correspond to dash options.
+  # - These are "non-option" arguments.
+  # - For example, one or more file or folder names that need to be processed.
+  # - If multiple values, they will be delimited by spaces.
+  # - Command line * will result in expansion to matching files and folders.
+  shift $((OPTIND-1))
+  additionalOpts=$*
 }
 ```
 
@@ -551,31 +550,31 @@ If necessary, run with `sh parse-command-line-builtin-getopts.txt`).
 The built-in `getopts` syntax is limited in that it cannot handle long options.
 This limitation can be overcome using the `getopts` Linux command (not built into the shell but instead a command that is called).  See:
 
-* [getopt man page](https://linux.die.net/man/1/getopt)
-* [TutorialsPoint getopt tutorial](https://www.tutorialspoint.com/unix_commands/getopt.htm)
+*   [getopt man page](https://linux.die.net/man/1/getopt)
+*   [TutorialsPoint getopt tutorial](https://www.tutorialspoint.com/unix_commands/getopt.htm)
 
 The code below is an example of a function to parse a command line using `getopt` command.
 Note the following:
 
-* The `getopt` command can handle short (`-a`) and long (`--abc`) arguments for cases
-of no argument, required argument, and optional argument.
-* If an option has optional argument, the syntax `-o=argument` or `--option=argument` must be used.
-* Handling single-dash long option (`-abc`) is not an explicit feature.
-Errors may be generated that `b` and `c` are unrecognized single-character options.
-* The `getopt` command essentially parses and recreates the command line so that
-special cases are handled:
-	+ Missing optional arguments are output as empty single-quoted string.
-	+ Option specified as `--option=argument` is output as space-delimited `--option argument`.
-* If `-h` is specified before `--`, the `getopt` help will be printed.
-Make sure to put the command line to parse after the `getopt` `--` option.
-* The `case` statement that is used to check for options uses the full option value, with leading dash(es).
-This is different than the built-in `getopts` feature, in which dashes are not used in the `case` statement.
-* The code below requires using `shift` to advance parsing through the options and arguments.
-This is foolproof because `getopt` reformats the original command line into simpler syntax
-and also generates an error if bad input is detected.
-* There is no way to do custom error handling such as for missing argument or unknown argument
-because `getopt` generates the error.
-There is different from built-in `getopts` that allows a colon to be specified at the beginning of `optstring`.
+*   The `getopt` command can handle short (`-a`) and long (`--abc`) arguments for cases
+    of no argument, required argument, and optional argument.
+*   If an option has optional argument, the syntax `-o=argument` or `--option=argument` must be used.
+*   Handling single-dash long option (`-abc`) is not an explicit feature.
+    Errors may be generated that `b` and `c` are unrecognized single-character options.
+*   The `getopt` command essentially parses and recreates the command line so that
+    special cases are handled:
+    +   Missing optional arguments are output as empty single-quoted string.
+    +   Option specified as `--option=argument` is output as space-delimited `--option argument`.
+*   If `-h` is specified before `--`, the `getopt` help will be printed.
+    Make sure to put the command line to parse after the `getopt` `--` option.
+*   The `case` statement that is used to check for options uses the full option value, with leading dash(es).
+    This is different than the built-in `getopts` feature, in which dashes are not used in the `case` statement.
+*   The code below requires using `shift` to advance parsing through the options and arguments.
+    This is foolproof because `getopt` reformats the original command line into simpler syntax
+    and also generates an error if bad input is detected.
+*   There is no way to do custom error handling such as for missing argument or unknown argument
+    because `getopt` generates the error.
+    There is different from built-in `getopts` that allows a colon to be specified at the beginning of `optstring`.
 
 The `getopt` call by itself does not print anything:
 
@@ -597,87 +596,87 @@ The following is code for a function to parse the command line:
 ```
 # Parse the command line and set variables to control logic
 parseCommandLine() {
-	# Special case that nothing was provided on the command line so print usage
-	# - include this if it is desired to print usage by default
-	if [ "$#" -eq 0 ]; then
-		printUsage
-		exit 0
-	fi
-	# Indicate specification for single character options
-	# - 1 colon after an option indicates that an argument is required
-	# - 2 colons after an option indicates that an argument is optional, must use -o=argument syntax
-	optstring="hi:o::v"
-	# Indicate specification for long options
-	# - 1 colon after an option indicates that an argument is required
-	# - 2 colons after an option indicates that an argument is optional, must use --option=argument syntax
-	optstringLong="help,input-file:,output-file::,version"
-	# Parse the options using getopt command
-	# - the -- is a separator between getopt options and parameters to be parsed
-	# - output is simple space-delimited command line
-	# - error message will be printed if unrecognized option or missing parameter but status will be 0
-	# - if an optional argument is not specified, output will include empty string ''
-	GETOPT_OUT=$(getopt --options $optstring --longoptions $optstringLong -- "$@")
-	exitCode=$?
-	if [ $exitCode -ne 0 ]; then
-		echo ""
-		printUsage
-		exit 1
-	fi
-	# The following constructs the command by concatenating arguments
-	# - the $1, $2, etc. variables are set as if typed on the command line
-	# - special cases like --option=value and missing optional arguments are generically handled
-	#   as separate parameters so shift can be done below
-	eval set -- "$GETOPT_OUT"
-	# Loop over the options
-	# - the error handling will catch cases were argument is missing
-	# - shift over the known number of options/arguments
-	while true; do
-		#echo "Command line option is $opt"
-		case "$1" in
-			-h|--help) # -h or --help  Print usage
-				printUsage
-				exit 0
-				;;
-			-i|--input-file) # -i inputFile or --input-file inputFile  Specify the input file
-				# Input file must be specified so $2 can be used
-				inputFile=$2
-				shift 2
-				;;
-			-o|--output-file) # -o outputFile or --output-file outputFile  Specify the output file
-				case "$2" in
-					"")  # No output file so use default (check elsewhere)
-						outputFile="stdout"
-						shift 2  # Because output file is an empty string $2=''
-						;;
-					*) # Output file has been specified so use it
-						outputFile=$2
-						shift 2  # Because output file is $2
-						;;
-				esac
-				;;
-			-v|--version) # -v or --version  Print the version
-				printVersion
-				exit 0
-				;;
-			--) # No more arguments
-				shift
-				break
-				;;
-			*) # Unknown option - will never get here because getopt catches up front
-				echo ""
-				echo "Invalid option $1." >&2
-				printUsage
-				exit 1
-				;;
-		esac
-	done
-	# Get a list of all command line options that do not correspond to dash options.
-	# - These are "non-option" arguments.
-	# - For example, one or more file or folder names that need to be processed.
-	# - If multiple values, they will be delimited by spaces.
-	# - Command line * will result in expansion to matching files and folders.
-	shift $((OPTIND-1))
-	additionalOpts=$*
+  # Special case that nothing was provided on the command line so print usage
+  # - include this if it is desired to print usage by default
+  if [ "$#" -eq 0 ]; then
+    printUsage
+    exit 0
+  fi
+  # Indicate specification for single character options
+  # - 1 colon after an option indicates that an argument is required
+  # - 2 colons after an option indicates that an argument is optional, must use -o=argument syntax
+  optstring="hi:o::v"
+  # Indicate specification for long options
+  # - 1 colon after an option indicates that an argument is required
+  # - 2 colons after an option indicates that an argument is optional, must use --option=argument syntax
+  optstringLong="help,input-file:,output-file::,version"
+  # Parse the options using getopt command
+  # - the -- is a separator between getopt options and parameters to be parsed
+  # - output is simple space-delimited command line
+  # - error message will be printed if unrecognized option or missing parameter but status will be 0
+  # - if an optional argument is not specified, output will include empty string ''
+  GETOPT_OUT=$(getopt --options $optstring --longoptions $optstringLong -- "$@")
+  exitCode=$?
+  if [ $exitCode -ne 0 ]; then
+    echo ""
+    printUsage
+    exit 1
+  fi
+  # The following constructs the command by concatenating arguments
+  # - the $1, $2, etc. variables are set as if typed on the command line
+  # - special cases like --option=value and missing optional arguments are generically handled
+  #   as separate parameters so shift can be done below
+  eval set -- "$GETOPT_OUT"
+  # Loop over the options
+  # - the error handling will catch cases were argument is missing
+  # - shift over the known number of options/arguments
+  while true; do
+    #echo "Command line option is $opt"
+    case "$1" in
+      -h|--help) # -h or --help  Print usage
+        printUsage
+        exit 0
+        ;;
+      -i|--input-file) # -i inputFile or --input-file inputFile  Specify the input file
+        # Input file must be specified so $2 can be used
+        inputFile=$2
+        shift 2
+        ;;
+      -o|--output-file) # -o outputFile or --output-file outputFile  Specify the output file
+        case "$2" in
+          "")  # No output file so use default (check elsewhere)
+            outputFile="stdout"
+            shift 2  # Because output file is an empty string $2=''
+            ;;
+          *) # Output file has been specified so use it
+            outputFile=$2
+            shift 2  # Because output file is $2
+            ;;
+        esac
+        ;;
+      -v|--version) # -v or --version  Print the version
+        printVersion
+        exit 0
+        ;;
+      --) # No more arguments
+        shift
+        break
+        ;;
+      *) # Unknown option - will never get here because getopt catches up front
+        echo ""
+        echo "Invalid option $1." >&2
+        printUsage
+        exit 1
+        ;;
+    esac
+  done
+  # Get a list of all command line options that do not correspond to dash options.
+  # - These are "non-option" arguments.
+  # - For example, one or more file or folder names that need to be processed.
+  # - If multiple values, they will be delimited by spaces.
+  # - Command line * will result in expansion to matching files and folders.
+  shift $((OPTIND-1))
+  additionalOpts=$*
 }
 ```
 

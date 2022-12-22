@@ -5,13 +5,13 @@ Consequently, a certain amount of start-up information must be configured for th
 This page explains fundamental configuration and interactions for the different Linux environments and shells,
 in particular for Windows environments.
 
-* [Location of Software Files](#location-of-software-files)
-* [Location of User Files](#location-of-user-files)
-* [Login Shell and Shell Script Shell](#login-shell-and-shell-script-shell)
-* [Shell Configuration Files](#shell-configuration-files)
-* [Environment Variables](#environment-variables)
-* [PATH Environment Variable](#path-environment-variable)
-* [File Paths](#file-paths)
+*   [Location of Software Files](#location-of-software-files)
+*   [Location of User Files](#location-of-user-files)
+*   [Login Shell and Shell Script Shell](#login-shell-and-shell-script-shell)
+*   [Shell Configuration Files](#shell-configuration-files)
+*   [Environment Variables](#environment-variables)
+*   [PATH Environment Variable](#path-environment-variable)
+*   [File Paths](#file-paths)
 
 -----
 
@@ -102,14 +102,14 @@ to make such changes with a text editor.
 The `bash` command shell is often used for the login shell and provides
 features such as:
 
-* command completion - for example, the tab key will complete filenames
-* command prompt customization - for example show the current folder
-* command aliases - for example alias `la` to `ls -a` to list all files
+*   command completion - for example, the tab key will complete filenames
+*   command prompt customization - for example show the current folder
+*   command aliases - for example alias `la` to `ls -a` to list all files
 
 The following `bash` configuration files are used to configure the `bash` shell environment:
 
-* `.bash_profile` - is executed for login shells
-* `.bashrc` - is executed for interactive non-login shells and when running a shell script
+*   `.bash_profile` - is executed for login shells
+*   `.bashrc` - is executed for interactive non-login shells and when running a shell script
 
 On Linux, files and folders with names that start with a period are treated as hidden and are not
 by default listed by the `ls` command (use `ls -a` to list all files).
@@ -210,10 +210,10 @@ This only makes sense if the shell is persistent and does not close after each r
 
 ```
 if [ -z "${ABC_SETUP}" ]; then
-	# The setup has not been completed so update the PATH
-	export PATH="/some/folder:${PATH}"
-	# Set the variable to check next time
-	export ABC_SETUP="YES"
+  # The setup has not been completed so update the PATH
+  export PATH="/some/folder:${PATH}"
+  # Set the variable to check next time
+  export ABC_SETUP="YES"
 fi
 ```
 

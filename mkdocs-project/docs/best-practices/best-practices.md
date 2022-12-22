@@ -2,17 +2,17 @@
 
 This page lists best practices, based on industry standards and first-hand experience.
 
-* [Use simple shell scripts to memorialize tasks](#use-simple-shell-scripts-to-memorialize-tasks)
-* [Use version control](#use-version-control)
-* [Indicate the shell to run in the first line of shell scripts](#indicate-the-shell-to-run-in-the-first-line-of-shell-scripts)
-* [Write code that is understandable](#write-code-that-is-understandable)
-* [Check whether the script is running in the correct folder](#check-whether-the-script-is-running-in-the-correct-folder)
-* [Echo useful troubleshooting information](#echo-useful-troubleshooting-information)
-* [Consider options for logging](#consider-options-for-logging)
-* [Create documentation](#create-documentation)
-* [Include useful web resource links in shell script comments](#include-useful-web-resource-links-in-shell-script-comments)
-* [Learn how to use shell features](#learn-how-to-use-shell-features)
-* [Use functions to create reusable blocks of code](#use-functions-to-create-reusable-blocks-of-code)
+*   [Use simple shell scripts to memorialize tasks](#use-simple-shell-scripts-to-memorialize-tasks)
+*   [Use version control](#use-version-control)
+*   [Indicate the shell to run in the first line of shell scripts](#indicate-the-shell-to-run-in-the-first-line-of-shell-scripts)
+*   [Write code that is understandable](#write-code-that-is-understandable)
+*   [Check whether the script is running in the correct folder](#check-whether-the-script-is-running-in-the-correct-folder)
+*   [Echo useful troubleshooting information](#echo-useful-troubleshooting-information)
+*   [Consider options for logging](#consider-options-for-logging)
+*   [Create documentation](#create-documentation)
+*   [Include useful web resource links in shell script comments](#include-useful-web-resource-links-in-shell-script-comments)
+*   [Learn how to use shell features](#learn-how-to-use-shell-features)
+*   [Use functions to create reusable blocks of code](#use-functions-to-create-reusable-blocks-of-code)
 
 -----------------
 
@@ -68,31 +68,31 @@ A simple rule is to ask "will the next person working on this code understand it
 
 The following are some basic guidelines to making code understandable:
 
-* Add full grammar comments to code.  Don't force people to assume what you mean.
-Use proper grammar.  Sloppy comments and incomplete thoughts can indicate sloppy code.
-* Explain complex syntax.  Don't assume that the next programmer will have a PhD in shell scripting.
-Yes, every answer can be found on the web, but the web also contains many misleading and out of date examples.
-* Use variable and function names that are verbose enough to provide context.
-Code should read like a clear process.  Using appropriate names will also reduce
-the need for code comments.
-* Be consistent in names and style.  If editing someone else's code, try to be consistent
-with the original style if possible.
-* Use double or single quotes around strings, as appropriate, to indicate strings.
-* Use appropriate indentation consistently.  Tabs are OK and if used should not be mixed with spaces.
-Spaces if used should be in groups of 2 or 4.  Do not assume that the next person to edit
-the code will use the same convention in their editor, and make it obvious what is being used
-by being consistent.
+*   Add full grammar comments to code.  Don't force people to assume what you mean.
+    Use proper grammar.  Sloppy comments and incomplete thoughts can indicate sloppy code.
+*   Explain complex syntax.  Don't assume that the next programmer will have a PhD in shell scripting.
+    Yes, every answer can be found on the web, but the web also contains many misleading and out of date examples.
+*   Use variable and function names that are verbose enough to provide context.
+    Code should read like a clear process.  Using appropriate names will also reduce
+    the need for code comments.
+*   Be consistent in names and style.  If editing someone else's code, try to be consistent
+    with the original style if possible.
+*   Use double or single quotes around strings, as appropriate, to indicate strings.
+*   Use appropriate indentation consistently.  Tabs are OK and if used should not be mixed with spaces.
+    Spaces if used should be in groups of 2 or 4.  Do not assume that the next person to edit
+    the code will use the same convention in their editor, and make it obvious what is being used
+    by being consistent.
 
 ## Check whether the script is running in the correct folder ##
 
 The folder from which a script is run often has a large impact on the functionality of the script.
 Options include:
 
-1. Allow the script to run in any folder since the task does not depend on the location.
-2. Allow the script to run in any folder and locate input and output based on the
-environment, such as detecting the user's home folder or a standard folder structure within the environment.
-3. Require the script to be run from a certain folder because input and output folders are relative
-to the run folder.
+1.  Allow the script to run in any folder since the task does not depend on the location.
+2.  Allow the script to run in any folder and locate input and output based on the
+    environment, such as detecting the user's home folder or a standard folder structure within the environment.
+3.  Require the script to be run from a certain folder because input and output folders are relative
+    to the run folder.
 
 Great pains may need to be taken in a script's code to ensure that a script runs correctly in any folder,
 in order to ensure that input files are found and output is created in the proper location.
@@ -195,11 +195,11 @@ A shell script is only truly useful if someone other than the original author ca
 Therefore, all shell scripts should have documentation in one or more forms,
 depending on the significance of the script, including:
 
-* Code comments, enough to understand the purpose, and good in-line comments.
-* A `printUsage()` or similar function that prints basic usage,
-run via `-h` or `--help`, or by default to show user available command options.
-* `README.md` file in the repository.
-* User documentation, such as this documentation.
+*   Code comments, enough to understand the purpose, and good in-line comments.
+*   A `printUsage()` or similar function that prints basic usage,
+    run via `-h` or `--help`, or by default to show user available command options.
+*   `README.md` file in the repository.
+*   User documentation, such as this documentation.
 
 ## Include useful web resource links in shell script comments ##
 

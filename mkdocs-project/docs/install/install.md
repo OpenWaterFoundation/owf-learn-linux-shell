@@ -8,12 +8,12 @@ although others can additionally be installed.
 This page describes how to install different shell programs,
 as well as providing background on which shell to use.
 
-* [Choosing a Linux Shell](#choosing-a-linux-shell)
-* [Installing a Shell on Linux](#installing-a-shell-on-linux)
-* [Installing Cygwin](#installing-cygwin)
-* [Installing MinGW](#installing-mingw)
-* [Installing Git for Windows (Git Bash)](#installing-git-for-windows-git-bash)
-* [Installing the Linux Subsystem on Windows 10](#installing-the-linux-subsystem-on-windows-10)
+*   [Choosing a Linux Shell](#choosing-a-linux-shell)
+*   [Installing a Shell on Linux](#installing-a-shell-on-linux)
+*   [Installing Cygwin](#installing-cygwin)
+*   [Installing MinGW](#installing-mingw)
+*   [Installing Git for Windows (Git Bash)](#installing-git-for-windows-git-bash)
+*   [Installing the Linux Subsystem on Windows 10](#installing-the-linux-subsystem-on-windows-10)
 
 -------
 
@@ -21,15 +21,15 @@ as well as providing background on which shell to use.
 
 Many Linux shells are available, often deriving from a common ancestry such as `sh`:
 
-* [Comparison of command shells (Wikipedia)](https://en.wikipedia.org/wiki/Comparison_of_command_shells)
+*   [Comparison of command shells (Wikipedia)](https://en.wikipedia.org/wiki/Comparison_of_command_shells)
 
 Choosing a command shell typically boils down to a few considerations, including:
 
-* what is the default in an environment?
-* what is the availability of the shell on other environments (how portable)?
-* does a shell adhere to standards?
-* what is the functionality of the shell?
-* what is the performance of the shell (how fast does it load and run)?
+*   what is the default in an environment?
+*   what is the availability of the shell on other environments (how portable)?
+*   does a shell adhere to standards?
+*   what is the functionality of the shell?
+*   what is the performance of the shell (how fast does it load and run)?
 
 These questions may be of little concern to the average shell user, especially those who just
 want to get some work done and are not professional programmers.
@@ -47,8 +47,8 @@ in interactive environments.
 **A general guideline is:  use the power and features of `bash` unless there are concerns about performance
 or portability.**  See:
 
-* [`sh` man page](http://man7.org/linux/man-pages/man1/sh.1p.html)
-* [`bash` man page](http://man7.org/linux/man-pages/man1/bash.1.html)
+*   [`sh` man page](http://man7.org/linux/man-pages/man1/sh.1p.html)
+*   [`bash` man page](http://man7.org/linux/man-pages/man1/bash.1.html)
 
 Note that in some systems shells have been aliased to a specific version, for example:
 [`sh` same as `bash`](https://linux.die.net/man/1/sh).
@@ -123,8 +123,8 @@ The Cygwin shells can run Windows programs because Cygwin programs are compiled 
 The Cygwin installation program will install `sh` and `bash` by default and additional shells and programs can be installed.
 Cygwin is a very useful environment to increase productivity.  See:
 
-* See [OWF Learn Cygwin](http://learn.openwaterfoundation.org/owf-learn-cygwin/)
-* See the [Cygwin](https://www.cygwin.com/) website
+*   See [OWF Learn Cygwin](http://learn.openwaterfoundation.org/owf-learn-cygwin/)
+*   See the [Cygwin](https://www.cygwin.com/) website
 
 ## Installing MinGW ##
 
@@ -134,7 +134,7 @@ such as Git for Windows.
 For example, if Git For Windows is installed, MinGW will be available in some form and therefore a command shell will be available.
 See:
 
-* [Minimalist GNU for Windows](http://www.mingw.org/)
+*   [Minimalist GNU for Windows](http://www.mingw.org/)
 
 ## ![Git](../images/git-bash-32.png)Installing Git for Windows (Git Bash) ##
 
@@ -142,14 +142,14 @@ Git for Windows is often installed by software developers and others who are usi
 to track versions of electronic files and collaborate with others on electronic file edits.
 Git for Windows will also install MinGW and Git Bash.  See:
 
-* [Git](https://git-scm.com/) - select the ***Downloads*** link and then ***Windows***
+*   [Git](https://git-scm.com/) - select the ***Downloads*** link and then ***Windows***
 
 ## ![Windows](../images/windows-32.png)Installing the Linux Subsystem on Windows 10 ##
 
 The following explains how to enable/install the Linux Subsystem on Windows 10.
 Microsoft is now shipping a version of Linux to help developers.
 
-* [How to Install and Use the Linux Bash Shell on Windows 10](https://www.howtogeek.com/249966/how-to-install-and-use-the-linux-bash-shell-on-windows-10/)
-	+ As indicated above, after enabling the Windows Subsystem for Linux, visit the app store as indicated in the above instructions and
-	install a version of Linux.  Ubuntu is recommended.
-	+ As indicated above, after installing, specify a login and password that will be used in the Linux shell.
+*   [How to Install and Use the Linux Bash Shell on Windows 10](https://www.howtogeek.com/249966/how-to-install-and-use-the-linux-bash-shell-on-windows-10/)
+    +   As indicated above, after enabling the Windows Subsystem for Linux, visit the app store as indicated in the above instructions and
+        install a version of Linux.  Ubuntu is recommended.
+    +   As indicated above, after installing, specify a login and password that will be used in the Linux shell.

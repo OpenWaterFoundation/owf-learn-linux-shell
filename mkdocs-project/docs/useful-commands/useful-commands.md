@@ -4,10 +4,10 @@ This page provides examples of useful Linux commands.
 The commands can be run from the command line or used in a shell scripts.
 See also [Useful Script Examples](../useful-scripts/useful-scripts).
 
-* [Count Matching String in Files](#count-matching-string-in-files)
-* [Find File Differences](#find-file-differences)
-* [Search Files for a String](#search-files-for-a-string)
-* [Search for Files](#search-for-files)
+*   [Count Matching String in Files](#count-matching-string-in-files)
+*   [Find File Differences](#find-file-differences)
+*   [Search Files for a String](#search-files-for-a-string)
+*   [Search for Files](#search-for-files)
 
 --------------
 
