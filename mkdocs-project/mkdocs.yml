@@ -14,6 +14,7 @@ nav:
 - Useful Script Examples: useful-scripts/useful-scripts.md
 - Troubleshooting: troubleshooting/troubleshooting.md
 - Resources: resources/resources.md
+- Appendix - cron Service: appendix-cron/cron.md
 # ------- configuration properties ---------------
 # Alphabetize
 # ------------------------------------------------

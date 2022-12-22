@@ -5,13 +5,13 @@ Often a line number will be printed indicating the location of a syntax error.
 Otherwise, the fix requires interpreting how to respond to a printed error message.
 Troubleshooting tricks include the following, which are explained in sections below:
 
-* [Redirect the output from the program to a file](#redirect-the-output-from-the-program-to-a-file)
-* [Use the `-x` command parameter to run the shell script](#use-the-x-command-parameter-to-run-the-shell-script)
-* [Add `echo` commands to print information](#add-echo-commands-to-print-information)
+*   [Redirect the output from the program to a file](#redirect-the-output-from-the-program-to-a-file)
+*   [Use the `-x` command parameter to run the shell script](#use-the-x-command-parameter-to-run-the-shell-script)
+*   [Add `echo` commands to print information](#add-echo-commands-to-print-information)
 
 Common errors are listed below and are explained in sections below:
 
-* [Error Message: `-bash: test.sh: command not found`](#error-message-bash-testsh-command-not-found)
+*   [Error Message: `-bash: test.sh: command not found`](#error-message-bash-testsh-command-not-found)
 
 
 ----------------------
@@ -124,15 +124,15 @@ abc
 This type of message will be printed if the command that is being run is not found in the `PATH`
 environment variable.  Resolve as follows:
 
-* Program is in current folder but `.` is not in the `PATH`.
-Often the current folder `.` will not be included in the path for security reasons (see article below).
-Therefore, if the script is executable (see below for changing executable permissions), it can be run with `./test.sh`.
-	+ [Is it safe to add . to my PATH?  How come?](https://unix.stackexchange.com/questions/65700/is-it-safe-to-add-to-my-path-how-come)
-	+ If `.` is in the `PATH`, someone could spoof a command like `ls` in the current folder with undesirable results.
-* Program is not in a folder that is in the `PATH`.
-	+ Fix by deploying the script to a folder that is in the `PATH`.
-	+ Or, add a new folder to the `PATH`.
-* Program is not executable.
-	+ On Linux a program needs to have execute permissions to run.
-	Therefore change permissions with, for example:  `chmod a+x test.sh` (change so all can execute).
-	See the [chmod documentation](https://en.wikipedia.org/wiki/Chmod) for more information.
+*   Program is in current folder but `.` is not in the `PATH`.
+    Often the current folder `.` will not be included in the path for security reasons (see article below).
+    Therefore, if the script is executable (see below for changing executable permissions), it can be run with `./test.sh`.
+    +   [Is it safe to add . to my PATH?  How come?](https://unix.stackexchange.com/questions/65700/is-it-safe-to-add-to-my-path-how-come)
+    +   If `.` is in the `PATH`, someone could spoof a command like `ls` in the current folder with undesirable results.
+*   Program is not in a folder that is in the `PATH`.
+    +   Fix by deploying the script to a folder that is in the `PATH`.
+    +   Or, add a new folder to the `PATH`.
+*   Program is not executable.
+    +   On Linux a program needs to have execute permissions to run.
+        Therefore change permissions with, for example:  `chmod a+x test.sh` (change so all can execute).
+        See the [chmod documentation](https://en.wikipedia.org/wiki/Chmod) for more information.

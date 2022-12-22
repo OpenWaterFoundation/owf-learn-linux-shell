@@ -5,25 +5,25 @@ Use the table of contents and index features of each site to find information ab
 shell script language feature, or search the internet.  
 Additional specific examples will be added.
 
-* [Shell Script Tutorial](https://www.shellscript.sh/) - Bourne shell tutorial
-* [Bourne Shell Programming](https://www.ooblick.com/text/sh/)
-* [Linux Shell Scripting Tutorial - A Beginner's Handbook](http://www.freeos.com/guides/lsst/)
-* [UNIX/Linux Tutorial from Tutorials Point](http://www.tutorialspoint.com/unix/)
+*   [Shell Script Tutorial](https://www.shellscript.sh/) - Bourne shell tutorial
+*   [Bourne Shell Programming](https://www.ooblick.com/text/sh/)
+*   [Linux Shell Scripting Tutorial - A Beginner's Handbook](http://www.freeos.com/guides/lsst/)
+*   [UNIX/Linux Tutorial from Tutorials Point](http://www.tutorialspoint.com/unix/)
 
 Examples of useful shell syntax are described below.
 The following are important topics to get started:
 
-* [First Line - Shebang](#first-line-shebang)
-* [Script Main Entry Point](#script-main-entry-point)
+*   [First Line - Shebang](#first-line-shebang)
+*   [Script Main Entry Point](#script-main-entry-point)
 
 The following topics are listed alphabetically and highlight some of the most useful features of shell
 scripts syntax:
 
-* [Arrays](#arrays)
-* [Functions](#functions)
-* [Function and Command Return Status for Error Handling](#function-and-command-return-status-for-error-handling)
-* ["Here Document" to Include Text in Script](#here-document-to-include-text-in-script)
-* [Scope of Variables](#scope-of-variables)
+*   [Arrays](#arrays)
+*   [Functions](#functions)
+*   [Function and Command Return Status for Error Handling](#function-and-command-return-status-for-error-handling)
+*   ["Here Document" to Include Text in Script](#here-document-to-include-text-in-script)
+*   [Scope of Variables](#scope-of-variables)
 
 --------------------
 
@@ -132,34 +132,34 @@ functionName arg1 arg2
 # Comments to document function
 # - don't list arguments in the parentheses
 functionName() {
-	# Indicate which variables are have scope that is local to the function
-	# - if a variable is not declared as "local", it be global to the script
-	local arg1 arg2
-	arg1=$1
-	arg2=$2
-	# Can use "shift" or parse arguments by looping, similar to parsing script commmand line
+  # Indicate which variables are have scope that is local to the function
+  # - if a variable is not declared as "local", it be global to the script
+  local arg1 arg2
+  arg1=$1
+  arg2=$2
+  # Can use "shift" or parse arguments by looping, similar to parsing script commmand line
 
-	# some logic here
+  # some logic here
 
-	# Can return value the following ways
-	# 1. Return an integer
-	#    - this is similar to any program's main calling exit with a status,
-	#      such as exit(0)
-	#    - exit status of 0 means success and non-zero indicates error code
-	#    - calling code can check value of $? but must assing to a variable
-	#      immediately because $? gets reassigned to the exit code of the
-	#      most-recently run program/command
-	return 0
+  # Can return value the following ways
+  # 1. Return an integer
+  #    - this is similar to any program's main calling exit with a status,
+  #      such as exit(0)
+  #    - exit status of 0 means success and non-zero indicates error code
+  #    - calling code can check value of $? but must assing to a variable
+  #      immediately because $? gets reassigned to the exit code of the
+  #      most-recently run program/command
+  return 0
 
-	# 2. Echo a string
-	#    - calling code would assign a variable using returnVal=$(functionName arg1 arg2)
-	# 
-	echo "some return string"
+  # 2. Echo a string
+  #    - calling code would assign a variable using returnVal=$(functionName arg1 arg2)
+  # 
+  echo "some return string"
 
-	# 3. Use a script global scope variable
-	#    - DO NOT declare the variable as "local" in the script
-	#    - Can declare the variable and set an initial value in the main (global) scope
-	#      or wait until function sets the value
+  # 3. Use a script global scope variable
+  #    - DO NOT declare the variable as "local" in the script
+  #    - Can declare the variable and set an initial value in the main (global) scope
+  #      or wait until function sets the value
 }
 ```
 
@@ -167,16 +167,16 @@ functionName() {
 
 It is often useful to include a block of text in a script, for example:
 
-* avoid having to add backslash continuation character to each text line
-* text that will be output to a file but it is undesirable to distribute a separate file with the script
-because it complicates distribution
-* multi-line message that will be displayed to to the user
-* SQL statement used with a database query program
+*   avoid having to add backslash continuation character to each text line
+*   text that will be output to a file but it is undesirable to distribute a separate file with the script
+    because it complicates distribution
+*   multi-line message that will be displayed to to the user
+*   SQL statement used with a database query program
 
 The "here document" feature of shells provides needed functionality.
 For background, see:
 
-* [Here document on Wikipedia](https://en.wikipedia.org/wiki/Here_document)
+*   [Here document on Wikipedia](https://en.wikipedia.org/wiki/Here_document)
 
 The following example illustrates the user of a here document to output a block of text to a file,
 for example as a patch file to a system.
@@ -258,11 +258,11 @@ Any code that is comprised of calls to external programs (commands), built-in sh
 and script functions should implement some type of error handling.
 An integer return status is used to indicate success or failure:
 
-* Programming languages such as C, Java, Python, etc. typically use a `main()` program
-function that calls `exit(0)` (or other integer value) to exit the program and pass the integer
-value to the shell as the program exit status.
-* Shell scripts can call `exit 0` (or other integer value) to indicate the exit status of the script.
-* Shell script functions can call  `return 0` (or other integer value) to indicate the return value of the script.
+*   Programming languages such as C, Java, Python, etc. typically use a `main()` program
+    function that calls `exit(0)` (or other integer value) to exit the program and pass the integer
+    value to the shell as the program exit status.
+*   Shell scripts can call `exit 0` (or other integer value) to indicate the exit status of the script.
+*   Shell script functions can call  `return 0` (or other integer value) to indicate the return value of the script.
 
 It is customary that a value of zero (`0`) is used to indicate success,
 and a non-zero value is used to indicate failure,
@@ -508,11 +508,11 @@ echo $joined2
 
 Other options for returning sub-shell output to calling code includes:
 
-* Use a file.  Direct output to a file in one sub-process and
-then read the file in the calling code.
-The Linux [`mktemp`](https://linux.die.net/man/1/mktemp)
-command can be used to generate a unique temporary filename,
-and the temporary file should be removed after use.
-* Use process substitution syntax (similar to files).  See the following:
-	+ ["Shell variables set inside while loop not visible outside of it"](https://stackoverflow.com/questions/4667509/shell-variables-set-inside-while-loop-not-visible-outside-of-it) 
-	+ [Advanced Bash Scripting Guide / Process Substitution](https://www.tldp.org/LDP/abs/html/process-sub.html)
+*   Use a file.  Direct output to a file in one sub-process and
+    then read the file in the calling code.
+    The Linux [`mktemp`](https://linux.die.net/man/1/mktemp)
+    command can be used to generate a unique temporary filename,
+    and the temporary file should be removed after use.
+*   Use process substitution syntax (similar to files).  See the following:
+    +   ["Shell variables set inside while loop not visible outside of it"](https://stackoverflow.com/questions/4667509/shell-variables-set-inside-while-loop-not-visible-outside-of-it) 
+    +   [Advanced Bash Scripting Guide / Process Substitution](https://www.tldp.org/LDP/abs/html/process-sub.html)
